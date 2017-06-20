@@ -14,10 +14,19 @@ const createAdminView = (name) => {
 export default [
   {
     path: '/createdArticle',
-    component: createAdminView('CreatedArticle')
+    component: createAdminView('CreatedArticle'),
+    meta: { title : '编辑文章'}
   },
   {
     path: '/articleList',
-    component: createAdminView('ArticleList')
+    component: createAdminView('ArticleList'),
+    meta: { title : '文章列表'}
+  },
+  {
+    path: '/articleDetails/:id',
+    name : 'articleDetails',
+    component: createAdminView('ArticleDetails'),
+    meta: { title : '文章详情'}
   }
+
 ];

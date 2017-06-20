@@ -1,6 +1,8 @@
 import axios from 'axios';
 import * as qs from 'qs';
 
+import { Message } from 'element-ui';
+
 axios.defaults.baseURL = 'http://localhost:8000';
 
 const MIN_RES_CODE = 200;
@@ -20,10 +22,10 @@ const isOk = (status) => {
 //网络请求捕获错误
 const requireCatch = (res) => {
   if ((typeof res === 'number' && !isOk(res)) || (res.response && !isOk(res.response.status))) {
-    alert({ message: '系统出现错误了~' + res });
+    Message.error({ message: '系统出现错误了~' + res });
   }
   if (res.code && res.code !== SUCCESS_CODE) {
-    alert({ message: res.message });
+    Message.warning({ message: res.message });
   }
   return Promise.reject(res);
 };

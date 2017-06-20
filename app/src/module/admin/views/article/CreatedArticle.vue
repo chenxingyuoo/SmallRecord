@@ -1,11 +1,9 @@
 <template>
   <div class="created-article">
 
+    <h2 class="text-align-center">{{ opts.title }}</h2>
 
-    <h2 class="form-item text-align-center">新增文章</h2>
-
-    <el-form ref="form" :model="editForm" label-width="80px">
-
+    <el-form ref="form" :model="editForm" label-width="40px">
 
       <el-form-item label="封面">
         <div class="news-cover form-item-content" @click="clickFile">
@@ -15,7 +13,6 @@
         </div>
       </el-form-item>
 
-
       <el-form-item label="标题">
         <el-input required v-model="editForm.title" placeholder="文章标题"></el-input>
       </el-form-item>
@@ -24,14 +21,12 @@
         <el-input type="textarea" v-model="editForm.desc" placeholder="文章描述"></el-input>
       </el-form-item>
 
-
       <el-form-item label="内容">
-        <mavon-editor v-model="editForm.editValue" ref="mavonEditor"></mavon-editor>
+        <mavon-editor v-model="editForm.editValue" ref="mavonEditor" style="height: 500px;"></mavon-editor>
       </el-form-item>
 
-
       <el-form-item label="">
-        <el-button type="primary" @click="submitEdit">创建</el-button>
+        <el-button type="primary" @click="submitEdit">提交</el-button>
       </el-form-item>
 
     </el-form>
@@ -45,9 +40,21 @@
 
   import defaultCover from '@/assets/img/logo.png';
 
+  let opts = {
+    create : {
+      title : '新增文章',
+      tips : '创建成功'
+    },
+    update : {
+      title : '更新文章',
+      tips : '更新成功'
+    }
+  };
+
   export default {
     data() {
       return {
+        opts : opts.create,
         articleId: null,
         editForm: {
           id: this.$route.query.id,
@@ -62,13 +69,9 @@
     },
     components: {},
     beforeMount(){
-      if (this.editForm.id) {
-        this.updateArticle();
-      }
+      this.updateArticleInit();
     },
     mounted (){
-      debugger;
-      console.log('mylog', this);
 
     },
     computed: {},
@@ -77,7 +80,6 @@
         'fetchOneArticle',
         'saveArticle'
       ]),
-
       clickFile(e){
         e.currentTarget.lastChild.click();
       },
@@ -86,9 +88,27 @@
         this.editForm.file = file;
         this.editForm.cover = window.URL ? URL.createObjectURL(file) : '';
       },
-      updateArticle(){
+      editFormReset(){
+        this.editForm = {
+          title: '',
+          desc: '',
+          content: '',
+          editValue: '',
+          file: null,
+          cover: defaultCover
+        };
+      },
+      updateArticleInit(){
+        if (this.$route.query.id) {
+          this.opts = opts.update;
+
+          this.editForm.id = this.$route.query.id;
+          this.getOneArticleData();
+        }
+      },
+      getOneArticleData(){
         let params = {
-          id: this.editForm.id
+          id: this.$route.query.id
         };
         this.fetchOneArticle(params)
           .then(res => {
@@ -104,16 +124,20 @@
         this.editForm.content = this.$refs.mavonEditor['d_render'];
 
         this.saveArticle(this.editForm).then(res => {
-          this.editForm = {
-            title: '',
-            desc: '',
-            content: '',
-            editValue: '',
-            file: null,
-            cover: defaultCover
-          };
-          alert('创建成功');
+          if (!this.editForm.id) {
+            this.editFormReset();
+          }
+          this.$message(this.opts.tips);
         });
+      }
+    },
+    watch : {
+      '$route' : function (route){
+        if (route.query.id) {
+          this.updateArticleInit();
+        } else {
+          this.editFormReset();
+        }
       }
     }
   };

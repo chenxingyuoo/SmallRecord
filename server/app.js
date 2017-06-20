@@ -44,7 +44,7 @@ app.use(async (ctx, next) => {
 
 //允许跨域
 app.use(async (ctx, next) => {
-  ctx.response.set('Access-Control-Allow-Origin', 'http://localhost:8080')
+  ctx.response.set('Access-Control-Allow-Origin', 'http://localhost:3050')
   ctx.response.set('Access-Control-Allow-Headers', 'X-Requested-With')
   ctx.response.set('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS')
   await next();
