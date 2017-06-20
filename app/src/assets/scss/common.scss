@@ -1,0 +1,347 @@
+@import "mixin";
+@import "animation";
+@import "sq-element-ui";
+@import "padding";
+@import "margin";
+@import "hint";
+@import "theme";
+//@import "../fonts/fonts";
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    //-webkit-overflow-scrolling: touch;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+input[type=number],
+input[type=text],
+input[type=password],
+input[type=button],
+input[type=email],
+input[type=submit],
+button,
+textarea {
+    -webkit-appearance: none;
+}
+
+input::-webkit-search-cancel-button {
+    display: none;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+img {
+    border: none;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #2c3e50;
+    cursor: pointer;
+}
+
+input {
+    border: none;
+    outline: none;
+}
+
+textarea {
+    resize: none;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+//公用过度动画
+.all-transition {
+    transition: all 300ms ease;
+}
+
+//禁用样式
+input[disabled] {
+    @include disabled(#efefef, #ccc);
+}
+
+.pagination {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.wh100{
+  width: 100%;
+  height: 100%;
+}
+
+.block {
+    display: block;
+}
+
+.text-align-left {
+    text-align: left;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+//定位到上边和左边
+.pos-top-left {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+//不圆角
+.not-radius {
+    border-radius: 0;
+}
+
+.inline-block {
+    @include inline-block();
+}
+
+//左浮动
+.fl {
+    @include pull-left();
+}
+
+//右浮动
+.fr {
+    @include pull-right();
+}
+
+//浮动恢复
+.reset-float {
+    @include reset-float();
+}
+
+//清除浮动
+.clearfix {
+    @include clearfix();
+}
+
+//隐藏
+.hidden {
+    @include hidden();
+}
+
+//仅浏览器隐藏，屏幕阅读器不被隐藏
+.visuallyhidden {
+    @include visuallyhidden();
+}
+
+//隐藏元素，但布局中占有空间
+.invisible {
+    visibility: hidden;
+}
+
+//宽度100% ， 文本截断加 ...
+.text-overflow {
+    @include text-ellipsis();
+}
+
+
+/**
+ * loading
+ */
+
+@-webkit-keyframes line-scale {
+    0% {
+        -webkit-transform: scaley(1);
+        transform: scaley(1);
+    }
+    50% {
+        -webkit-transform: scaley(0.4);
+        transform: scaley(0.4);
+    }
+    100% {
+        -webkit-transform: scaley(1);
+        transform: scaley(1);
+    }
+}
+
+@keyframes line-scale {
+    0% {
+        -webkit-transform: scaley(1);
+        transform: scaley(1);
+    }
+    50% {
+        -webkit-transform: scaley(0.4);
+        transform: scaley(0.4);
+    }
+    100% {
+        -webkit-transform: scaley(1);
+        transform: scaley(1);
+    }
+}
+
+.line-scale > div:nth-child(1) {
+    -webkit-animation: line-scale 1s 0.1s infinite cubic-bezier(.2, .68, .18, 1.08);
+    animation: line-scale 1s 0.1s infinite cubic-bezier(.2, .68, .18, 1.08);
+}
+
+.line-scale > div:nth-child(2) {
+    -webkit-animation: line-scale 1s 0.2s infinite cubic-bezier(.2, .68, .18, 1.08);
+    animation: line-scale 1s 0.2s infinite cubic-bezier(.2, .68, .18, 1.08);
+}
+
+.line-scale > div:nth-child(3) {
+    -webkit-animation: line-scale 1s 0.3s infinite cubic-bezier(.2, .68, .18, 1.08);
+    animation: line-scale 1s 0.3s infinite cubic-bezier(.2, .68, .18, 1.08);
+}
+
+.line-scale > div:nth-child(4) {
+    -webkit-animation: line-scale 1s 0.4s infinite cubic-bezier(.2, .68, .18, 1.08);
+    animation: line-scale 1s 0.4s infinite cubic-bezier(.2, .68, .18, 1.08);
+}
+
+.line-scale > div:nth-child(5) {
+    -webkit-animation: line-scale 1s 0.5s infinite cubic-bezier(.2, .68, .18, 1.08);
+    animation: line-scale 1s 0.5s infinite cubic-bezier(.2, .68, .18, 1.08);
+}
+
+.line-scale > div {
+    background-color: #fff;
+    width: 4px;
+    height: 35px;
+    border-radius: 2px;
+    margin: 2px;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    display: inline-block;
+}
+
+//echart标题样式
+.echart-common-title {
+    display: flex;
+    line-height: 1em;
+    font-size: 14px;
+    font-weight: bolder;
+    margin: 25px 0 0 5px;
+    .echart-common-block {
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+        background-color: #00cce9;
+        margin: 2px 10px 15px 0;
+    }
+}
+
+//按钮默认样式
+.btn {
+    color: #fff;
+    display: inline-block;
+    margin-bottom: 0;
+    padding: .5rem 1rem;
+    vertical-align: middle;
+    font-size: 14px;
+    font-weight: lighter;
+    line-height: 1.2;
+    text-align: center;
+    white-space: nowrap;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+    cursor: pointer;
+    outline: 0;
+    -webkit-appearance: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-transition: background-color .3s ease-out, border-color .3s ease-out;
+    transition: background-color .3s ease-out, border-color .3s ease-out;
+}
+
+//文本居右显示
+.text-align-right {
+    text-align: right;
+}
+
+//文本居左显示
+.text-align-left {
+    text-align: left;
+}
+
+//文本居中显示
+.text-align-center {
+    text-align: center;
+}
+.el-card{
+    box-shadow: 0 1px 4px 0 rgba(131, 146, 166, 0.5);
+    border-radius: 2px;
+}
+//Collapse 折叠面板
+.el-collapse {
+    border: none;
+}
+.el-collapse-item__wrap{
+    background-color: #fff;
+    box-shadow: 0 1px 4px 0 rgba(131, 146, 166, 0.5);
+    margin-top: 20px;
+}
+.el-collapse-item__header {
+    /*border: 1px solid rgb(223, 234, 236);*/
+    box-shadow: 0 1px 4px 0 rgba(131, 146, 166, 0.5);
+}
+.el-collapse-item {
+    margin-bottom: 20px;
+}
+.is-active .el-collapse-item__header{
+    background: #f1f8f9;
+}
+//箭头
+.el-collapse-item__header__arrow {
+  float: right;
+  line-height: 44px;
+  margin-right: 15px;
+}
+
+//表格样式
+.el-table {
+    border: 1px solid #C0CCDB;
+}
+.el-table th.is-leaf, .el-table td {
+    border-bottom: 1px solid #C0CCDB;
+}
+.el-table--border th, .el-table--border td {
+    border-right: 1px solid #C0CCDB;
+}
+.title-rectangle{
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    background-color: #00cce9;
+    display: inline-block;
+    margin-right: 10px;
+}
+h1,h2,h3,h4{
+    margin-bottom: 15px;
+}
+h1{
+    font-size: 24px;
+}
+h2{
+    font-size: 22px;
+}
+h3{
+    font-size: 20px;
+}
+h4{
+    font-size: 18px;
+}

@@ -1,0 +1,189 @@
+/**
+ * 动画调用
+ */
+@mixin animation($name, $duration , $function : ease, $delay : 0ms, $count : 1, $mode : both) {
+  animation-name: $name;
+  animation-duration: $duration;
+  animation-timing-function: $function;
+  animation-delay: $delay;
+  animation-iteration-count: $count;
+  animation-fill-mode: $mode
+}
+
+/**
+ * 定位 默认 absolute 定位
+ */
+@mixin absolute($top : 0, $left : 0, $type : absolute) {
+  position: $type;
+  top: $top + px;
+  left: $left + px;
+}
+
+/**
+ * 定位居中 默认 absolute 定位
+ */
+@mixin absCenter($top : 0, $left : 0, $type : absolute) {
+  position: $type;
+  top: $top + px;
+  left: $left + px;
+  margin-left: -($left / 2) + px;
+}
+
+/**
+ * 水平居中
+ */
+@mixin horizontal-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+%horizontal-center {
+  @include horizontal-center;
+}
+
+/**
+ * 设置背景
+ */
+@mixin bgSet($url : '', $size : 100% 100%) {
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-size: $size;
+}
+
+/**
+ * 行内块元素
+ */
+$inline-block-alignment: middle !default; //设置一个默认的对齐方式
+@mixin inline-block($alignment: $inline-block-alignment) {
+  display: inline-block;
+  @if $alignment and $alignment != none {
+    vertical-align: $alignment;
+  }
+}
+
+/**
+ * 浮动
+ */
+@mixin float($side:left) {
+  float: unquote($side);
+}
+
+//左浮动
+@mixin pull-left {
+  @include float(left);
+}
+
+%pull-left {
+  @include float(left);
+}
+
+// 右浮动
+@mixin pull-right {
+  @include float(right);
+}
+
+%pull-right {
+  @include float(right);
+}
+
+/**
+ * 浮动恢复默认
+ */
+@mixin reset-float($display:block) {
+  float: none;
+  display: $display;
+}
+
+/**
+ * 清除浮动clearfix
+ */
+
+@mixin clearfix {
+  &:before, &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+    overflow: hidden;
+  }
+}
+
+%clearfix {
+  @include clearfix;
+}
+
+/**
+ * 隐藏元素
+ */
+
+//1.浏览器和屏幕阅读器都隐藏元素
+@mixin hidden {
+  display: none !important;
+  visibility: hidden;
+}
+
+%hidden {
+  @include hidden;
+}
+
+//2.仅浏览器隐藏，屏幕阅读器不被隐藏
+@mixin visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+
+  //扩展了`.visuallyhidden`，充许`.focusable`元素通过键盘获取
+  &.focusable:active, &.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+  }
+}
+
+%visuallyhidden {
+  @include visuallyhidden;
+}
+
+
+/**
+ * 截取文本text-overflow
+ * `$substract`单位为%
+ */
+
+@mixin text-ellipsis($substract:0) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100% - $substract;
+}
+
+%text-ellipsis {
+  @include text-ellipsis;
+}
+
+/**
+ * 禁用样式disabled
+ */
+
+@mixin disabled($bgColor: #e6e6e6,$textColor:#ababab) {
+  background-color: $bgColor !important;
+  color: $textColor !important;
+  cursor: not-allowed !important;
+}
+
+
+
+
+
+
+
+

@@ -64,7 +64,7 @@ app.use(hotMiddleware)
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
-var uri = 'http://localhost:' + port
+var uri = 'http://localhost:' + port + '/module/admin.html#/index'
 
 var _resolve
 var readyPromise = new Promise(resolve => {
@@ -80,6 +80,30 @@ devMiddleware.waitUntilValid(() => {
   }
   _resolve()
 })
+
+app.post('/post', (req, res) => {
+  console.log(req.headers);
+  res.writeHead(200, {
+    "Content-Type": "application/json; charset=UTF-8",
+    "Access-Control-Allow-Origin": 'http://127.0.0.1:8060'
+  });
+  let people = {
+    type: 'post',
+  }
+  res.end(JSON.stringify(people));
+})
+
+app.get('/get' ,(req, res) => {
+  res.writeHead(200, {
+    "Content-Type": "application/json; charset=UTF-8",
+    "Access-Control-Allow-Origin": 'http://127.0.0.1:8060'
+  });
+  let people = {
+    type: 'get',
+  }
+  res.end(JSON.stringify(people));
+})
+
 
 var server = app.listen(port)
 

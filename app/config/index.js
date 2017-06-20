@@ -2,6 +2,11 @@
 var path = require('path')
 
 module.exports = {
+  entry : {
+    jsEntrySrc : './src/module/**/*.js',      //js入口文件正则匹配
+    htmlEntrySrc : './src/module/**/*.html',  //html入口文件正则匹配
+    ignoreFolder : ['vuex' , 'router', 'components', 'common', 'views']        //忽略文件夹不作为入口
+  },
   build: {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),
@@ -23,11 +28,16 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8080,
+    port: 3050,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/public' : {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true
+      }
+    },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)

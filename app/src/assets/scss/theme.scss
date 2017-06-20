@@ -1,0 +1,51 @@
+$color-primary: #00cce9;
+$dark-primary: #01b7d1;
+$color-success: #13df60;
+$color-warning: #f7c111;
+$color-danger: #e90055;
+$color-info: #0b9eff;
+
+.com-color{
+  color: $color-primary;
+}
+.succ-color{
+  color: $color-success;
+}
+.warn-color{
+  color: $color-warning;
+}
+.danger-color{
+  color: $color-danger;
+}
+.info-color{
+  color: $color-info;
+}
+
+.com-bg-color{
+  background-color: $color-primary;
+}
+
+.com-border-color{
+  border-color: $color-primary;
+}
+
+.color-hover{
+  color: $color-primary;
+  &:hover{
+    color: $dark-primary;
+  }
+}
+
+.bg-color-hover{
+  background-color: $color-primary;
+  &:hover{
+    background-color: $dark-primary;
+  }
+}
+
+.border-color-hover{
+  border-color: $color-primary;
+  &:hover{
+    border-color: $dark-primary;
+  }
+}

@@ -1,0 +1,63 @@
+/*修改element-ui的样式*/
+
+
+.el-menu [class^="el-icon-"] {
+  vertical-align: baseline !important;
+  margin-right: 10px !important;
+}
+.el-menu-item {
+  padding: 0 20px !important;
+}
+.el-menu-item, .el-submenu__title {
+  height: 45px !important;
+  line-height: 45px !important;
+}
+
+//.el-submenu__icon-arrow {
+//  position: relative !important;
+//  top: 0 !important;
+//  right: 0 !important;
+//  vertical-align: baseline !important;
+//  margin-right: 10px !important;
+//  margin-top: -7px !important;
+//  transition: transform .3s !important;
+//  font-size: 12px !important;
+//}
+
+//.el-submenu.is-opened .el-submenu__icon-arrow {
+//  -ms-transform: rotate(90deg) !important;
+//  transform: rotateZ(90deg) !important;
+//}
+
+//分页标准按钮
+.el-pager li{
+  margin: 0 5px !important;
+  border-radius: 5px;
+  border-right: 1px solid rgb(209, 225, 229) !important;
+}
+.el-pagination .btn-prev {
+  border-radius: 5px !important;
+  border-right: 1px solid rgb(209, 225, 229) !important;
+  margin-right: 5px !important;
+}
+.el-pagination .btn-next {
+  border-radius: 5px !important;
+  border-left: 1px solid rgb(209, 225, 229) !important;
+  margin-left: 5px !important;
+}
+.el-pager li.active + li {
+  border-left: 1px solid rgb(209, 225, 229) !important;
+}
+
+//分页小按钮
+.el-pagination--small .btn-prev,
+.el-pagination--small .btn-next{
+  border-radius: 5px !important;
+  border-color: #ddd !important;
+}
+
+.el-pagination--small .el-pager li{
+  margin: 0 2px !important;
+  border-radius: 5px !important;
+  border-color: #ddd !important;
+}
