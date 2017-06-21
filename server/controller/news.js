@@ -95,11 +95,10 @@ exports.getNewsList = async (ctx, next) => {
     ctx.response.body = {
       code: 1,
       data: {
-        page: page,
         firstPage: isFirstPage,
         lastPage: isLastPage,
         pageSize: pageSize,
-        currentPage: currentPage,
+        currentPage: page,
         totalPage: totalPage,
         list: data
       },

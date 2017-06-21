@@ -1,6 +1,7 @@
 <template>
 <div id="index">
-  <p class="">欢迎登录 "小记录" 后台管理系统</p>
+  <p class="">欢迎登录 "小记录" 后台管理系统 O(∩_∩)O~</p>
+  <p class="">github ：<a href="https://github.com/chenxingyuoo/SmallRecord" target="_blank" class="com-color">https://github.com/chenxingyuoo/SmallRecord</a></p>
 </div>
 
 </template>

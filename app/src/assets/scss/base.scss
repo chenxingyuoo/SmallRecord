@@ -1,0 +1,88 @@
+@import "variables.scss";
+
+h1{
+  font-size: 22px;
+}
+h2{
+  font-size: 20px;
+}
+h3{
+  font-size: 18px;
+}
+h4{
+  font-size: 16px;
+}
+h5{
+  font-size: 14px;
+}
+h6{
+  font-size: 12px;
+}
+p{
+  margin-bottom: 10px;
+}
+
+main,
+header,
+footer,
+article,
+section,
+aside,
+details,
+summary {
+  margin: 0 auto;
+  width: 100%;
+}
+
+main {
+  display: block;
+  width: $container-width;
+
+  &.mobile {
+    width: $mobile-container-width;
+  }
+}
+
+footer {
+  clear: both;
+  display: inline-block;
+  max-width: 100%;
+  padding: $md-pad 0;
+  text-align: center;
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.container {
+  width: $container-width;
+  margin: 0 auto;
+}
+
+hr {
+  border-top: $border;
+  display: block;
+  margin-bottom: $md-pad;
+  width: 100%;
+}
+
+img {
+  height: auto;
+  // max-width: 100%;
+  // vertical-align: baseline;
+}
+
+@media screen and (max-width: $small-breakpoint) {
+  article,
+  section,
+  aside {
+    clear: both;
+    display: block;
+    max-width: 100%;
+  }
+
+  img {
+    // margin-right: $md-pad;
+  }
+}

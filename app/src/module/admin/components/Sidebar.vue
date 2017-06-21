@@ -3,7 +3,7 @@
     <el-menu :default-active="onRoutes" class="el-menu-vertical-demo" theme="dark" unique-opened router>
 
       <el-menu-item index="/index">
-        <i class="el-icon-setting"></i><span class="el-menu__text">自述</span>
+        <i class="el-icon-menu"></i><span class="el-menu__text">欢迎</span>
       </el-menu-item>
 
       <el-submenu index="2">

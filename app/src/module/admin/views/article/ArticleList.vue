@@ -101,7 +101,7 @@
         }
 
         if (!isFirstPage && staffIsZero) {
-          this.page = articleData.page - 1;
+          this.page = articleData.currentPage - 1;
           this.getArticleData();
         }
       },

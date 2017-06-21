@@ -30,7 +30,8 @@ var baseConfig = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
-      '@admin': resolve('src/module/admin')
+      '@admin': resolve('src/module/admin'),
+      '@pc': resolve('src/module/pc')
     }
   },
   module: {
