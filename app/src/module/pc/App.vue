@@ -14,9 +14,10 @@
 </template>
 
 <script>
+  import Background from '@/components/Background.vue';
+
   import BackTop from '@pc/components/common/BackTop.vue';
 
-  import Background from '@pc/components/layout/Background.vue';
   import Header from '@pc/components/layout/Header.vue';
   export default {
     data() {
@@ -40,25 +41,16 @@
   }
 
   #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  #app-main {
-    transition: $mobile-aisde-transition;
 
-    &.open {
-      transition: $mobile-aisde-transition;
-      transform: translateX(68%);
-    }
-
-
-  }
 
   #main {
     position: relative;
     padding-top: 80px;
+    padding-bottom: 20px;
 
     .main-content {
       float: left;
@@ -67,24 +59,6 @@
       position: relative;
       overflow: hidden;
       transition : width 0.35s;
-
-      &.full-column {
-        width: 62.5em;
-        transition : width 0.35s;
-      }
-
-      &.error-column {
-        width: 100%;
-        margin: 0;
-        transition : width 0.35s;
-      }
-
-      &.mobile-layout {
-        width: 100%;
-        margin: 0;
-        padding: 1rem;
-        padding-top: $navbar-height + 1;
-      }
     }
   }
 

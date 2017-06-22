@@ -1,0 +1,96 @@
+@charset "UTF-8";
+.form--inline .form-item, .form--inline .form-item__content {
+  display: inline-block;
+  vertical-align: top
+}
+
+.form-item:after, .form-item__content:after {
+  clear: both
+}
+
+.form--lableft .form-item__label {
+  text-align: left
+}
+
+.form--labtop .form-item__label {
+  float: none;
+  display: inline-block;
+  text-align: left;
+  padding: 0 0 10px
+}
+
+.form--inline .form-item {
+  margin-right: 10px
+}
+
+.form--inline .form-item__label {
+  float: none;
+  display: inline-block
+}
+
+.form--inline.form--labtop .form-item__content {
+  display: block
+}
+
+.form-item {
+  margin-bottom: 22px
+}
+
+.form-item:after, .form-item:before {
+  display: table;
+  content: ""
+}
+
+.form-item .form-item {
+  margin-bottom: 0
+}
+
+.form-item .form-item .form-item__content {
+  margin-left: 0 !important
+}
+
+.form-item.is-error .input-group__append .input__inner, .form-item.is-error .input-group__prepend .input__inner, .form-item.is-error .input__inner {
+  border-color: transparent
+}
+
+.form-item.is-error .input__inner, .form-item.is-error .textarea__inner {
+  border-color: #ff4949
+}
+
+.form-item.is-required .form-item__label:before {
+  content: '*';
+  color: #ff4949;
+  margin-right: 4px
+}
+
+.form-item__label {
+  text-align: right;
+  vertical-align: middle;
+  float: left;
+  font-size: 14px;
+  color: #48576a;
+  line-height: 1;
+  padding: 11px 12px 11px 0;
+  box-sizing: border-box
+}
+
+.form-item__content {
+  line-height: 36px;
+  position: relative;
+  font-size: 14px
+}
+
+.form-item__content:after, .form-item__content:before {
+  display: table;
+  content: ""
+}
+
+.form-item__error {
+  color: #ff4949;
+  font-size: 12px;
+  line-height: 1;
+  padding-top: 4px;
+  position: absolute;
+  top: 100%;
+  left: 0
+}

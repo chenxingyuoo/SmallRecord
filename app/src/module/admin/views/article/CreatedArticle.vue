@@ -38,7 +38,7 @@
 
   import { mapGetters, mapActions } from 'vuex';
 
-  import defaultCover from '@/assets/img/logo.png';
+  import defaultCover from '@/assets/img/default-cover.png';
 
   let opts = {
     create : {

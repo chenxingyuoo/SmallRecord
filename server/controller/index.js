@@ -6,7 +6,6 @@
 
 //首页
 exports.index = async (ctx, next) => {
-  // ctx.response.body = `<h1>Hello!</h1>`;
   ctx.render('index.html', {
     title: 'Welcome'
   });

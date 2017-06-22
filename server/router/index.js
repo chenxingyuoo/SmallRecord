@@ -9,9 +9,16 @@ const router = require('koa-router')();
 
 const controlIndex = require('../controller/index');
 const controlNews = require('../controller/news');
+const controlUser = require('../controller/user');
 
 
 router.get('/', controlIndex.index);
+
+
+//用户注册
+router.post('/userSignup', controlUser.userSignup);
+//用户登录
+router.post('/userSignin', controlUser.userSignin);
 
 //保存文章
 router.post('/saveNews', controlNews.saveNews);

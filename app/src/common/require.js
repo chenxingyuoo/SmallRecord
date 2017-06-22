@@ -102,7 +102,7 @@ export const post = (opts = {}) => {
  * * @param  {Object}   opts   请求对象 包括 axios 的配置参数
  * @return {Promise}        Promise
  */
-export const upload = (opts = {}, commit) => {
+export const upload = (opts = {}) => {
   let setting = {
     url: '',
     method: 'POST',

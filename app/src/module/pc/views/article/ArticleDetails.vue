@@ -1,15 +1,16 @@
 <template>
     <article id="article">
-      <div class="article-header">
-        <h2 class="article-title">{{ oneArticle.title }}</h2>
-        <div class="article-info">
-          <span>{{oneArticle.updateAt}}</span>
+      <div class="pad-20">
+        <div class="article-header">
+          <h2 class="article-title">{{ oneArticle.title }}</h2>
+          <div class="article-info">
+            <span>{{oneArticle.updateAt}}</span>
+          </div>
+        </div>
+        <div class="article-content markdown-body code-github">
+          <div v-html="oneArticle.content"></div>
         </div>
       </div>
-      <div class="article-content markdown-body code-github">
-          <div v-html="oneArticle.content"></div>
-      </div>
-
 
     </article>
 </template>
@@ -48,7 +49,9 @@
 
 <style lang="scss" rel="stylesheet/scss">
   #article{
-    padding: 20px;
+    background-color: #fff;
+    opacity: 0.8;
+    border-radius: 2px;
     .article-header{
       text-align: center;
       margin-bottom: 40px;

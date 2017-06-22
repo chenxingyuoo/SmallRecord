@@ -1,10 +1,10 @@
 <template>
   <div class="header">
-    <div class="logo">后台管理系统</div>
+    <div class="logo">SmallRecord管理系统</div>
     <div class="user-info">
       <el-dropdown trigger="click" @command="handleCommand">
                 <span class="el-dropdown-link">
-                    <img class="user-logo" src="../../../assets/img/logo.png">
+                    <img class="user-logo" src="../../../assets/img/default-cover.png">
                     {{username}}
                 </span>
         <el-dropdown-menu slot="dropdown">
@@ -53,7 +53,7 @@
 
   .header .logo {
     float: left;
-    width: 200px;
+    width: 250px;
     text-align: center;
   }
 

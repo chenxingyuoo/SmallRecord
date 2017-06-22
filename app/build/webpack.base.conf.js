@@ -31,7 +31,8 @@ var baseConfig = {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
       '@admin': resolve('src/module/admin'),
-      '@pc': resolve('src/module/pc')
+      '@pc': resolve('src/module/pc'),
+      '@base': resolve('src/module/base')
     }
   },
   module: {

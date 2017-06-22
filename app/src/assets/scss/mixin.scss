@@ -15,8 +15,8 @@
  */
 @mixin absolute($top : 0, $left : 0, $type : absolute) {
   position: $type;
-  top: $top + px;
-  left: $left + px;
+  top: $top;
+  left: $left;
 }
 
 /**
@@ -24,9 +24,29 @@
  */
 @mixin absCenter($top : 0, $left : 0, $type : absolute) {
   position: $type;
-  top: $top + px;
-  left: $left + px;
+  top: $top;
+  left: $left;
   margin-left: -($left / 2) + px;
+}
+
+/**
+ * 定位x居中 默认 absolute 定位
+ */
+@mixin absCenterX( $top : 0, $type : absolute) {
+  position: $type;
+  letf: 50%;
+  top: $top;
+  transform: translateX(-50%)
+}
+
+/**
+ * 定位y居中 默认 absolute 定位
+ */
+@mixin absCenterY( $left : 0, $type : absolute) {
+  position: $type;
+  top: 50%;
+  left: $left;
+  transform: translateY(-50%)
 }
 
 /**

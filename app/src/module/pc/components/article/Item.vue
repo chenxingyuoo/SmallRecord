@@ -53,6 +53,7 @@
 </template>
 
 <script>
+
   export default {
     name: 'article-list-item',
     props: {
@@ -61,7 +62,7 @@
     methods: {
       buildCover(cover) {
         if (!cover) {
-          return '/images/cover-article.jpg';
+          return '/img/default-cover.png';
         }
         return cover;
       }

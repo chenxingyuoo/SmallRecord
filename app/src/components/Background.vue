@@ -149,7 +149,11 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    opacity: .3;
+    opacity: .8;
+    background-image: url('../assets/img/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
   }
 
   .background-canvas {

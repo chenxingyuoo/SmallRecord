@@ -6,19 +6,12 @@
 
 const Koa = require('koa');
 const logger = require('koa-logger')
-// const body = require('koa-better-body')
-
+const session = require("koa-session2")
 const bodyParser = require('koa-bodyparser');
-
-// const multer = require('koa-multer');
-
 const koaBody = require('koa-body');
 
-
 // 导入controller middleware:
-
 const staticFiles = require('./middleware/static-files');
-
 const templating = require('./middleware/templating');
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -29,8 +22,6 @@ const app = new Koa();
 app.use(logger())
 
 app.use(koaBody({multipart: true}));
-
-// app.use(multer({ dest: './uploads/'}));
 
 // log request URL:
 app.use(async (ctx, next) => {
@@ -55,16 +46,33 @@ app.use(bodyParser());
 app.use(staticFiles('/static/', __dirname + '/static'));
 app.use(staticFiles('/public/', __dirname + '/public'));
 
-app.use(templating('../app/', {
+app.use(templating('./', {
     noCache: !isProduction,
     watch: !isProduction
 }));
+
+app.use(session({
+  key: "SESSIONID",   //default "koa:sess"
+  maxAge: 500000      //设置session超时时间
+}));
+
+// app.use(async (ctx,next) => {
+//   // ignore favicon
+//   debugger;
+//   if (ctx.path === '/favicon.ico') return;
+//
+//   // let se = ctx.cookies.get('SESSIONID')
+//   // let n = ctx.session.views || 0;
+//   // ctx.session.views = ++n;
+//   ctx.response.body =  '1 views';
+//   await next();
+// });
+
 
 const router = require('./router');
 //添加路由中间件
 app.use(router.routes());
 app.use(router.allowedMethods());
-
 
 app.on('error', (err, ctx) => {
   console.error('server error', err);
