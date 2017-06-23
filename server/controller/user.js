@@ -6,7 +6,11 @@
 
 const User = require('../models/user')
 
-const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+// var jwt = require('koa-jwt');
+const config = require('../config')
+
+// const bcrypt = require('bcrypt')
 const SALT_WORK_FACTOR = 10
 /**
  * 加盐加密
@@ -14,13 +18,13 @@ const SALT_WORK_FACTOR = 10
  * @return hash {object} 加密密码
  * @author gh
  */
-var encrypt = async (password) => {
-  var salt = await bcrypt.genSaltSync(SALT_WORK_FACTOR)
-  var hash = await bcrypt.hashSync(password, salt)
-  console.log('mylog', salt, 'salt')
-  console.log('mylog', hash, 'hash')
-  return hash
-}
+// var encrypt = async (password) => {
+//   var salt = await bcrypt.genSaltSync(SALT_WORK_FACTOR)
+//   var hash = await bcrypt.hashSync(password, salt)
+//   console.log('mylog', salt, 'salt')
+//   console.log('mylog', hash, 'hash')
+//   return hash
+// }
 
 /**
  * 密码对比
@@ -29,10 +33,10 @@ var encrypt = async (password) => {
  * @return res {boolean} 比对结果 true:密码匹配 | false:密码不匹配
  * @author gh
  */
-var validate = async (password, hash) => {
-  var res = await bcrypt.compareSync(password, hash)
-  return res
-}
+// var validate = async (password, hash) => {
+//   var res = await bcrypt.compareSync(password, hash)
+//   return res
+// }
 
 //基础页面
 exports.showBasePage = async (ctx, next) => {
@@ -47,7 +51,7 @@ exports.userSignup = async (ctx, next) => {
   let tel = body.tel
   let password = body.password
   let checkPass = body.checkPass
-  let userData
+  let user
 
   if (password !== checkPass) {
     ctx.response.body = {
@@ -55,34 +59,35 @@ exports.userSignup = async (ctx, next) => {
       data: null,
       msg: '两次输入的密码不一致'
     }
-    return;
+    return
   }
 
   try {
-    userData = await User.findOne({tel: tel});
+    user = await User.findOne({tel: tel})
 
-    if (userData !== null) {
+    if (user !== null) {
       ctx.response.body = {
         code: 0,
         data: null,
         msg: '该账号已注册'
       }
-      return;
+      return
     }
 
     //加密密码
-    password = await encrypt(password);
+    // password = await encrypt(password)
 
-    let user = new User({
+    let userModel = new User({
       tel: body.tel,
       password: password
     })
+
     //保存到数据库
-    userData = await user.save()
+    user = await userModel.save()
 
     ctx.response.body = {
       code: 1,
-      data: userData,
+      data: user,
       msg: '注册成功'
     }
 
@@ -97,36 +102,43 @@ exports.userSignin = async (ctx, next) => {
   let tel = body.tel
   let password = body.password
 
-  console.log('mylog', body);
+  console.log('mylog', body)
 
   try {
-    let userData = await User.findOne({tel: tel});
+    let user = await User.findOne({tel: tel})
 
-    if (userData === null) {
+    if (user === null) {
       ctx.response.body = {
         code: 0,
         data: null,
         msg: '不存在该账号'
       }
-      return;
+      return
     }
 
-    let isPassWord = await validate(password, userData.password);
-
-    console.log('mylog', isPassWord);
-
+    // let isPassWord = await validate(password, user.password)
+    let isPassWord = true
     if (isPassWord === false) {
       ctx.response.body = {
         code: 0,
         data: null,
         msg: '您输入的密码不正确'
       }
-      return;
+      return
     }
+
+    user.token = jwt.sign(user._id, config.secret, {
+      expiresIn: 20   // 24小时过期
+    });
+
+    console.log('mylog', user.token)
+
+    user = await user.save()
 
     ctx.response.body = {
       code: 1,
-      data: userData,
+      data: user,
+      token: user.token,
       msg: '登录成功'
     }
 

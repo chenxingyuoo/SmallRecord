@@ -33,8 +33,12 @@
 
 <script>
   import { post } from '@/common/require';
-  import { checkPhone } from '@/common/validators';
   import api from '@base/common/api';
+  import createStore from '@/common/storage';
+  import { checkPhone } from '@/common/validators';
+
+  const store = createStore('local');
+
   export default {
     data() {
       const validatePass = (rule, value, callback) => {
@@ -74,11 +78,14 @@
             return;
           }
 
-          //注册请求
+          //登录请求
           post({
             url : api.userSignin,
             data : this.loginForm
           }).then(res => {
+
+            store.set('authToken', res.token);
+            location.href = '/module/admin.html#/index';
           }).catch(err => {
           });
 

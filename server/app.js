@@ -9,6 +9,9 @@ const logger = require('koa-logger')
 const session = require("koa-session2")
 const bodyParser = require('koa-bodyparser');
 const koaBody = require('koa-body');
+const jwt = require('jsonwebtoken');
+const koajwt = require('koa-jwt');
+const config = require('./config');
 
 // 导入controller middleware:
 const staticFiles = require('./middleware/static-files');
@@ -36,7 +39,7 @@ app.use(async (ctx, next) => {
 //允许跨域
 app.use(async (ctx, next) => {
   ctx.response.set('Access-Control-Allow-Origin', 'http://localhost:3050')
-  ctx.response.set('Access-Control-Allow-Headers', 'X-Requested-With')
+  ctx.response.set('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
   ctx.response.set('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS')
   await next();
 })
@@ -74,23 +77,26 @@ const router = require('./router');
 app.use(router.routes());
 app.use(router.allowedMethods());
 
+
+// app.use(koajwt({ secret: config.secret}).unless({ path: [/^\/userSignup/,/^\/userSignin/] }));
+
 app.on('error', (err, ctx) => {
   console.error('server error', err);
 });
 
 //启动服务 ， 监听文件自动刷新
-const bs = require('browser-sync').create();
+// const bs = require('browser-sync').create();
 const port = 3000;
 app.listen(port, (argument) => {
   // body...
-  bs.init({
-    open: false,
-    ui: false,
-    notify: false,
-    proxy: `localhost:${port}`,
-    files: ['../app'],
-    port: 8000
-  });
+  // bs.init({
+  //   open: false,
+  //   ui: false,
+  //   notify: false,
+  //   proxy: `localhost:${port}`,
+  //   files: ['../app'],
+  //   port: 8000
+  // });
 
   console.log(`http://localhost:${port}`);
 });

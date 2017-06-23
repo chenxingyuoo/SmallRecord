@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as qs from 'qs';
 
-axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.baseURL = 'http://localhost:3000';
 
 const MIN_RES_CODE = 200;
 const MAX_RES_CODE = 300;

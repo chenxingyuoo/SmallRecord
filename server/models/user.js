@@ -7,6 +7,10 @@
 const mongoose = require('../db').mongoose;
 
 const UserSchema = new mongoose.Schema({
+  token : {
+    type: String,
+    default: ''
+  },
   tel: {
     type: Number,
     default: null

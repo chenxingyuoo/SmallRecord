@@ -3,13 +3,20 @@ import * as qs from 'qs';
 
 import { Message } from 'element-ui';
 
-axios.defaults.baseURL = 'http://localhost:8000';
+import createStore from '@/common/storage';
+
+axios.defaults.baseURL = 'http://localhost:3000';
 
 const MIN_RES_CODE = 200;
 const MAX_RES_CODE = 300;
 const CONTENT_TYPE = 'application/x-www-form-urlencoded';
 
 const SUCCESS_CODE = 1;
+
+const store = createStore('local');
+
+const AUTH_TOKEN = store.get('authToken');
+// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 
 //请求状态码是否ok
 const isOk = (status) => {
@@ -45,6 +52,8 @@ export const get = (opts = {}, commit) => {
   //合并对象
   setting = Object.assign(setting, opts);
 
+  setting.params.token = AUTH_TOKEN;
+
   return axios(setting)
     .then((res) => {
       if (res.status < MIN_RES_CODE || res.status > MAX_RES_CODE) {
@@ -77,8 +86,13 @@ export const post = (opts = {}, commit) => {
 
   //合并对象
   setting = Object.assign(setting, opts);
+
+  setting.data.token = AUTH_TOKEN;
+
+
   //data参数序列化
   setting.data = qs.stringify(opts.data);
+
 
   return axios(setting)
     .then(res => {
@@ -125,6 +139,8 @@ export const upload = (opts = {}, commit) => {
 
   //合并对象
   setting = Object.assign(setting, opts);
+
+  setting.data.token = AUTH_TOKEN;
 
   return axios(setting).then((res) => {
     if (!isOk(res.status)) {
