@@ -7,7 +7,7 @@ export default {
   article: {
     fetching: false,
     data: {},
-    currPage : 0
+    currPage : 1
   },
   oneArticle : {}
 };

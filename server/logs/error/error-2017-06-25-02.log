@@ -1,0 +1,56 @@
+[2017-06-25 02:49:32.189] [ERROR] errorLogger - 
+*************** error log start ***************
+request method: GET
+request originalUrl:  /
+request client ip:  ::1
+request query:  {}
+response time: 4ms
+err name: Error
+err message: template not found: index.html
+err stack: Error: template not found: index.html
+    at createTemplate (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.0.1@nunjucks/src/environment.js:207:31)
+    at next (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.0.1@nunjucks/src/lib.js:210:13)
+    at handle (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.0.1@nunjucks/src/environment.js:253:25)
+    at /Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.0.1@nunjucks/src/environment.js:264:21
+    at next (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.0.1@nunjucks/src/lib.js:207:13)
+    at Object.exports.asyncIter (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.0.1@nunjucks/src/lib.js:214:5)
+    at new_cls.getTemplate (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.0.1@nunjucks/src/environment.js:243:17)
+    at new_cls.render (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.0.1@nunjucks/src/environment.js:305:14)
+    at Object.module.exports.render (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.0.1@nunjucks/index.js:72:14)
+    at Object.ctx.render (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/middleware/templating.js:28:42)
+    at exports.index (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/controller/index.js:9:7)
+    at dispatch (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.2.1@koa-compose/index.js:44:32)
+    at next (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.2.1@koa-compose/index.js:45:18)
+    at /Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.7.2.1@koa-router/lib/router.js:345:16
+    at dispatch (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.2.1@koa-compose/index.js:44:32)
+    at /Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.2.1@koa-compose/index.js:36:12
+*************** error log end ***************
+
+[2017-06-25 02:51:15.848] [ERROR] errorLogger - 
+*************** error log start ***************
+request method: GET
+request originalUrl:  /admin
+request client ip:  ::1
+request query:  {}
+response time: 4ms
+err name: Error
+err message: template not found: /module/admin.html
+err stack: Error: template not found: /module/admin.html
+    at createTemplate (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.0.1@nunjucks/src/environment.js:207:31)
+    at next (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.0.1@nunjucks/src/lib.js:210:13)
+    at handle (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.0.1@nunjucks/src/environment.js:253:25)
+    at /Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.0.1@nunjucks/src/environment.js:264:21
+    at next (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.0.1@nunjucks/src/lib.js:207:13)
+    at Object.exports.asyncIter (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.0.1@nunjucks/src/lib.js:214:5)
+    at new_cls.getTemplate (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.0.1@nunjucks/src/environment.js:243:17)
+    at new_cls.render (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.0.1@nunjucks/src/environment.js:305:14)
+    at Object.module.exports.render (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.0.1@nunjucks/index.js:72:14)
+    at Object.ctx.render (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/middleware/templating.js:28:42)
+    at router.get (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/router/index.js:16:7)
+    at dispatch (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.2.1@koa-compose/index.js:44:32)
+    at next (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.2.1@koa-compose/index.js:45:18)
+    at /Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.7.2.1@koa-router/lib/router.js:345:16
+    at dispatch (/Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.2.1@koa-compose/index.js:44:32)
+    at /Users/chenxingyu/project/my_learn/node+vue/SmallRecord/server/node_modules/.3.2.1@koa-compose/index.js:36:12
+*************** error log end ***************
+

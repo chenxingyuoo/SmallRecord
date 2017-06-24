@@ -24,20 +24,24 @@
       </el-table-column>
       <el-table-column label="操作">
         <template scope="scope">
-          <el-button size="small">
-            <router-link :to="{ name: 'articleDetails' , params : { id: scope.row._id } }">
-              查看
-            </router-link>
-          </el-button>
-          <el-button size="small">
+          <router-link :to="{ name: 'articleDetails' , params : { id: scope.row._id } }">
+            <el-button size="small">
+                查看
+            </el-button>
+          </router-link>
+
+          <template v-if="userInfo.isAdmin && userInfo.isAdmin === 1">
             <router-link :to="{ path: '/createdArticle' , query : { id: scope.row._id } }">
-              更新
+              <el-button size="small">
+                  更新
+              </el-button>
             </router-link>
-          </el-button>
-          <el-button
-            size="small"
-            type="danger"
-            @click="deleteArticle(scope.$index, scope.row)">删除</el-button>
+
+            <el-button
+              size="small"
+              type="danger"
+              @click="deleteArticle(scope.$index, scope.row)">删除</el-button>
+          </template>
         </template>
       </el-table-column>
     </el-table>
@@ -47,6 +51,7 @@
         @current-change="pageChange"
         layout="prev, pager, next"
         :page-size="1"
+        :current-page="article.currPage"
         :total="article.data.totalPage">
       </el-pagination>
     </div>
@@ -58,18 +63,19 @@
   export default {
     data() {
       return {
-        page : 1
       };
     },
     beforeMount(){
       this.getArticleData();
     },
     mounted(){
-      console.log('mylog', this);
     },
     computed: {
       ...mapGetters({
-        article : 'getArticle'
+        //article
+        article : 'getArticle',
+        //global
+        userInfo : 'getUserInfo'
       })
     },
     methods: {
@@ -79,13 +85,14 @@
       ]),
       getArticleData(){
         let params = {
-          page : this.page,
+          page : this.article.currPage,
           pageSize : this.$store.state.global.pageSize
         };
         this.fetchArticleList(params);
       },
       pageChange(val){
-        this.page = val;
+        //设置页码
+        this.$store.commit('setPage', val);
         this.getArticleData();
       },
       //数据为0条时重新请求
@@ -95,13 +102,15 @@
         let staffIsZero = articleData.list.length === 0;
 
         if (isFirstPage && staffIsZero) {
-          this.page = 1;
+          //设置页码
+          this.$store.commit('setPage', 1);
           this.getArticleData();
           return;
         }
 
         if (!isFirstPage && staffIsZero) {
-          this.page = articleData.currentPage - 1;
+          //设置页码
+          this.$store.commit('setPage', articleData.currentPage - 1);
           this.getArticleData();
         }
       },

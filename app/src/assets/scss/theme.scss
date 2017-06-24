@@ -5,6 +5,7 @@ $color-success: #13df60;
 $color-warning: #f7c111;
 $color-danger: #e90055;
 $color-info: #0b9eff;
+$color-white: #fff;
 
 .com-color{
   color: $color-primary;
@@ -20,6 +21,9 @@ $color-info: #0b9eff;
 }
 .info-color{
   color: $color-info;
+}
+.white-color{
+  color: $color-white;
 }
 
 .com-bg-color{

@@ -2,91 +2,96 @@
  * Created on 2017/6/2.
  */
 
-'use strict';
+'use strict'
 
-const Koa = require('koa');
+const path = require('path')
+const Koa = require('koa')
 const logger = require('koa-logger')
-const session = require("koa-session2")
-const bodyParser = require('koa-bodyparser');
-const koaBody = require('koa-body');
-const jwt = require('jsonwebtoken');
-const koajwt = require('koa-jwt');
-const config = require('./config');
+// const session = require("koa-session2")
+const bodyParser = require('koa-bodyparser')
+const koaBody = require('koa-body')
+//log工具
+const logUtil = require('./utils/log_util')
 
 // 导入controller middleware:
-const staticFiles = require('./middleware/static-files');
-const templating = require('./middleware/templating');
+const staticFiles = require('./middleware/static-files')
+const templating = require('./middleware/templating')
 
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV === 'production'
 
 // 创建一个Koa对象表示web app本身:
-const app = new Koa();
+const app = new Koa()
 
 app.use(logger())
 
-app.use(koaBody({multipart: true}));
+//koaBody 要在 bodyParser 上面
+app.use(koaBody({multipart: true}))
 
-// log request URL:
-app.use(async (ctx, next) => {
-    console.log(`Process ${ctx.request.method} ${ctx.request.url}...`);
-    let start = new Date().getTime(),
-        execTime;
-    await next();
-    execTime = new Date().getTime() - start;
-    ctx.response.set('X-Response-Time', `${execTime}ms`);
-});
+app.use(bodyParser())
+
+app.use(staticFiles('/dist/', path.join(__dirname , '../app/dist')))
+app.use(staticFiles('/static/', path.join(__dirname , '../app/dist/static')))
+app.use(staticFiles('/public/', __dirname + '/public'))
+
+app.use(templating('../app/dist/module/', {
+    noCache: !isProduction,
+    watch: !isProduction
+}))
 
 //允许跨域
 app.use(async (ctx, next) => {
   ctx.response.set('Access-Control-Allow-Origin', 'http://localhost:3050')
-  ctx.response.set('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+  ctx.response.set('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization')
   ctx.response.set('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS')
-  await next();
+  await next()
 })
 
-app.use(bodyParser());
 
-app.use(staticFiles('/static/', __dirname + '/static'));
-app.use(staticFiles('/public/', __dirname + '/public'));
+// logger
+app.use(async (ctx, next) => {
+  //响应开始时间
+  const start = new Date()
+  //响应间隔时间
+  let execTime
+  try {
+    //开始进入到下一个中间件
+    await next()
 
-app.use(templating('./', {
-    noCache: !isProduction,
-    watch: !isProduction
-}));
+    execTime = new Date() - start
 
-app.use(session({
-  key: "SESSIONID",   //default "koa:sess"
-  maxAge: 500000      //设置session超时时间
-}));
+    ctx.response.set('X-Response-Time', `${execTime}ms`)
 
-// app.use(async (ctx,next) => {
-//   // ignore favicon
-//   debugger;
-//   if (ctx.path === '/favicon.ico') return;
-//
-//   // let se = ctx.cookies.get('SESSIONID')
-//   // let n = ctx.session.views || 0;
-//   // ctx.session.views = ++n;
-//   ctx.response.body =  '1 views';
-//   await next();
-// });
+    //记录响应日志
+    logUtil.logResponse(ctx, `${execTime}ms`)
+
+  } catch (error) {
+
+    execTime = new Date() - start
+
+    //记录异常日志
+    logUtil.logError(ctx, error, `${execTime}ms`)
+
+  }
+})
 
 
-const router = require('./router');
+// app.use(session({
+//   key: "SESSIONID",   //default "koa:sess"
+//   maxAge: 500000      //设置session超时时间
+// }))
+
+const router = require('./router')
 //添加路由中间件
-app.use(router.routes());
-app.use(router.allowedMethods());
-
-
-// app.use(koajwt({ secret: config.secret}).unless({ path: [/^\/userSignup/,/^\/userSignin/] }));
+app.use(router.routes())
+app.use(router.allowedMethods())
 
 app.on('error', (err, ctx) => {
-  console.error('server error', err);
-});
+  console.error('server error', err)
+})
 
 //启动服务 ， 监听文件自动刷新
-// const bs = require('browser-sync').create();
-const port = 3000;
+// const bs = require('browser-sync').create()
+const port = 3000
 app.listen(port, (argument) => {
   // body...
   // bs.init({
@@ -96,10 +101,7 @@ app.listen(port, (argument) => {
   //   proxy: `localhost:${port}`,
   //   files: ['../app'],
   //   port: 8000
-  // });
+  // })
+  console.log(`http://localhost:${port}`)
+})
 
-  console.log(`http://localhost:${port}`);
-});
-
-// app.listen(port);
-// console.log(`app started alst port ${port}...`);

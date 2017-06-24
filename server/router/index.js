@@ -5,48 +5,45 @@
 'use strict'
 
 const router = require('koa-router')()
+const viewControl = require('../controller/views')
+const newsControl = require('../controller/news')
+const userControl = require('../controller/user')
 
-const User = require('../models/user')
+//首页
+router.get('/', viewControl.index)
 
-const controlIndex = require('../controller/index')
-const controlNews = require('../controller/news')
-const controlUser = require('../controller/user')
+//后台管理页面
+router.get('/admin', viewControl.adminView)
 
-const jwt = require('jsonwebtoken')
-const config = require('../config')
+//pc端页面
+router.get('/pc', viewControl.pcView)
 
-const ensureAuthorized = async (ctx, next) => {
-  let token = ctx.request.query.token || ctx.request.body.token || ctx.request.get('authorization')
 
-  try {
-    let profile = await jwt.verify(token, config.secret)
-
-    if (profile !== null) {
-      await next()
-    }
-  } catch (e) {
-    console.log('mylog', e)
-  }
-
-}
-
-router.get('/', controlIndex.index)
+/**
+ * 用户模块
+ */
 
 //用户注册
-router.post('/userSignup', controlUser.userSignup)
+router.post('/userSignup', userControl.userSignup)
 //用户登录
-router.post('/userSignin', controlUser.userSignin)
+router.post('/userSignin', userControl.userSignin)
+//用户退出登录
+router.post('/userSignout', userControl.userSignout)
+
+/**
+ * 文章模块
+ */
 
 //保存文章
-router.post('/saveNews', controlNews.saveNews)
+router.post('/saveNews', userControl.verifyLogin, userControl.verifyAuthority , newsControl.saveNews)
 
 //获取文章列表
-router.get('/getNewsList',   controlNews.getNewsList)
+router.get('/getNewsList', newsControl.getNewsList)
 
 //获取一篇文章
-router.get('/getOneNews', controlNews.getOneNews)
+router.get('/getOneNews', newsControl.getOneNews)
 
 //删除一篇文章
-router.post('/delOneNews', controlNews.delOneNews)
+router.post('/delOneNews', userControl.verifyLogin, userControl.verifyAuthority , newsControl.delOneNews)
 
 module.exports = router

@@ -81,29 +81,6 @@ devMiddleware.waitUntilValid(() => {
   _resolve()
 })
 
-app.post('/post', (req, res) => {
-  console.log(req.headers);
-  res.writeHead(200, {
-    "Content-Type": "application/json; charset=UTF-8",
-    "Access-Control-Allow-Origin": 'http://127.0.0.1:8060'
-  });
-  let people = {
-    type: 'post',
-  }
-  res.end(JSON.stringify(people));
-})
-
-app.get('/get' ,(req, res) => {
-  res.writeHead(200, {
-    "Content-Type": "application/json; charset=UTF-8",
-    "Access-Control-Allow-Origin": 'http://127.0.0.1:8060'
-  });
-  let people = {
-    type: 'get',
-  }
-  res.end(JSON.stringify(people));
-})
-
 
 var server = app.listen(port)
 

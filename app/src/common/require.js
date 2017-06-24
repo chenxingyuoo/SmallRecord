@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as qs from 'qs';
 
+
 axios.defaults.baseURL = 'http://localhost:3000';
 
 const MIN_RES_CODE = 200;
@@ -8,6 +9,7 @@ const MAX_RES_CODE = 300;
 const CONTENT_TYPE = 'application/x-www-form-urlencoded';
 
 const SUCCESS_CODE = 1;
+
 
 //请求状态码是否ok
 const isOk = (status) => {
@@ -45,13 +47,15 @@ export const get = (opts = {}) => {
 
   return axios(setting)
     .then((res) => {
-      if (res.status < MIN_RES_CODE || res.status > MAX_RES_CODE) {
-        return Promise.reject(new Error(res.status));
+      let code = res.data.code;
+      if (!isOk(res.status)) {
+        return Promise.reject(res.status);
       }
 
-      if (res.data.code === SUCCESS_CODE) {
+      if (code === SUCCESS_CODE) {
         return res.data;
       }
+
       return Promise.reject(res.data);
     }).catch((res) => {
       return requireCatch(res);
@@ -80,12 +84,12 @@ export const post = (opts = {}) => {
 
   return axios(setting)
     .then(res => {
-
+      let code = res.data.code;
       if (!isOk(res.status)) {
         return Promise.reject(res.status);
       }
 
-      if (res.data.code === SUCCESS_CODE) {
+      if (code === SUCCESS_CODE) {
         return res.data;
       }
 
@@ -125,13 +129,15 @@ export const upload = (opts = {}) => {
   setting = Object.assign(setting, opts);
 
   return axios(setting).then((res) => {
+    let code = res.data.code;
     if (!isOk(res.status)) {
       return Promise.reject(res.status);
     }
 
-    if (res.data.code === SUCCESS_CODE) {
+    if (code === SUCCESS_CODE) {
       return res.data;
     }
+
     return Promise.reject(res.data);
 
   }).catch(res => {

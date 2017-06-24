@@ -32,7 +32,7 @@
           setWrapperSize: true,
           pagination: '.swiper-pagination',
           paginationClickable: true,
-          mousewheelControl: true,
+          mousewheelControl: false,
           observeParents: true,
           slidesPerView: 1,
           autoHeight: true,

@@ -3,7 +3,7 @@
 
     <h2 class="text-align-center">{{ opts.title }}</h2>
 
-    <el-form ref="form" :model="editForm" label-width="40px">
+    <el-form ref="form" :model="editForm" :rules="rules" label-width="60px">
 
       <el-form-item label="封面">
         <div class="news-cover form-item-content" @click="clickFile">
@@ -13,7 +13,7 @@
         </div>
       </el-form-item>
 
-      <el-form-item label="标题">
+      <el-form-item label="标题" prop="title">
         <el-input required v-model="editForm.title" placeholder="文章标题"></el-input>
       </el-form-item>
 
@@ -21,12 +21,12 @@
         <el-input type="textarea" v-model="editForm.desc" placeholder="文章描述"></el-input>
       </el-form-item>
 
-      <el-form-item label="内容">
-        <mavon-editor v-model="editForm.editValue" ref="mavonEditor" style="height: 500px;"></mavon-editor>
+      <el-form-item label="内容" prop="editValue">
+        <mavon-editor v-model="editForm.editValue" ref="mavonEditor" style="height: 500px;" @change="editChange"></mavon-editor>
       </el-form-item>
 
       <el-form-item label="">
-        <el-button type="primary" @click="submitEdit">提交</el-button>
+        <el-button type="primary" @click="createdArticle">提交</el-button>
       </el-form-item>
 
     </el-form>
@@ -64,6 +64,14 @@
           content: '',
           file: null,
           cover: defaultCover
+        },
+        rules : {
+          title: [
+            { required: true, message: '请输入文章标题', trigger: 'blur' }
+          ],
+          editValue : [
+            { required: true, message: '请输入文章内容'}
+          ]
         }
       };
     },
@@ -90,6 +98,7 @@
       },
       editFormReset(){
         this.editForm = {
+          id: this.$route.query.id,
           title: '',
           desc: '',
           content: '',
@@ -120,15 +129,27 @@
 
           });
       },
-      submitEdit(e) {
-        this.editForm.content = this.$refs.mavonEditor['d_render'];
+      createdArticle(e) {
 
-        this.saveArticle(this.editForm).then(res => {
-          if (!this.editForm.id) {
-            this.editFormReset();
+        this.$refs.form.validate((valid) => {
+          if (!valid) {
+            return;
           }
-          this.$message(this.opts.tips);
+
+          this.editForm.content = this.$refs.mavonEditor['d_render'];
+
+          this.saveArticle(this.editForm).then(res => {
+            if (!this.editForm.id) {
+              this.editFormReset();
+            }
+            this.$message(this.opts.tips);
+          });
         });
+      },
+      //编辑内容改变
+      editChange(value,reder){
+        this.editForm.editValue = value;
+        this.$refs.form.validateField('editValue');
       }
     },
     watch : {

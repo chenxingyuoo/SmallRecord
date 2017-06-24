@@ -16,5 +16,9 @@ export default {
   //删除一篇文章成功
   delOneArticleSucc(state, index){
     state.article.data.list.splice(index, 1);
+  },
+  //设置页码
+  setPage(state, page = 1){
+    state.article.currPage = page;
   }
 };

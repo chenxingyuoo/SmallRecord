@@ -6,44 +6,13 @@
 
 const User = require('../models/user')
 
+const hash = require('../common/hash')
+
 const jwt = require('jsonwebtoken')
-// var jwt = require('koa-jwt');
 const config = require('../config')
 
-// const bcrypt = require('bcrypt')
-const SALT_WORK_FACTOR = 10
-/**
- * 加盐加密
- * @param password {string} 原始密码
- * @return hash {object} 加密密码
- * @author gh
- */
-// var encrypt = async (password) => {
-//   var salt = await bcrypt.genSaltSync(SALT_WORK_FACTOR)
-//   var hash = await bcrypt.hashSync(password, salt)
-//   console.log('mylog', salt, 'salt')
-//   console.log('mylog', hash, 'hash')
-//   return hash
-// }
-
-/**
- * 密码对比
- * @param password {string} 原始密码
- * @param hash {string} 加密密码
- * @return res {boolean} 比对结果 true:密码匹配 | false:密码不匹配
- * @author gh
- */
-// var validate = async (password, hash) => {
-//   var res = await bcrypt.compareSync(password, hash)
-//   return res
-// }
-
-//基础页面
-exports.showBasePage = async (ctx, next) => {
-  ctx.render('base.html', {
-    title: 'Welcome'
-  })
-}
+//是否登录
+let isSignin = false
 
 //用户注册
 exports.userSignup = async (ctx, next) => {
@@ -57,7 +26,7 @@ exports.userSignup = async (ctx, next) => {
     ctx.response.body = {
       code: 0,
       data: null,
-      msg: '两次输入的密码不一致'
+      message: '两次输入的密码不一致'
     }
     return
   }
@@ -69,13 +38,13 @@ exports.userSignup = async (ctx, next) => {
       ctx.response.body = {
         code: 0,
         data: null,
-        msg: '该账号已注册'
+        message: '该账号已注册'
       }
       return
     }
 
     //加密密码
-    // password = await encrypt(password)
+    password = await hash.encrypt(password)
 
     let userModel = new User({
       tel: body.tel,
@@ -88,7 +57,7 @@ exports.userSignup = async (ctx, next) => {
     ctx.response.body = {
       code: 1,
       data: user,
-      msg: '注册成功'
+      message: '注册成功'
     }
 
   } catch (err) {
@@ -102,47 +71,138 @@ exports.userSignin = async (ctx, next) => {
   let tel = body.tel
   let password = body.password
 
-  console.log('mylog', body)
-
   try {
     let user = await User.findOne({tel: tel})
-
+    let userId = user._id
     if (user === null) {
       ctx.response.body = {
         code: 0,
         data: null,
-        msg: '不存在该账号'
+        message: '不存在该账号'
       }
       return
     }
 
-    // let isPassWord = await validate(password, user.password)
-    let isPassWord = true
+    //验证密码
+    let isPassWord = await hash.validate(password, user.password)
+    // let isPassWord = true
     if (isPassWord === false) {
       ctx.response.body = {
         code: 0,
         data: null,
-        msg: '您输入的密码不正确'
+        message: '您输入的密码不正确'
       }
       return
     }
 
-    user.token = jwt.sign(user._id, config.secret, {
-      expiresIn: 20   // 24小时过期
-    });
+    user.token = jwt.sign({
+      userId : userId
+    } , config.secret, {
+      expiresIn: 60 * 60   // 1小时过期
+    })
 
     console.log('mylog', user.token)
 
     user = await user.save()
 
+    isSignin = true
+
     ctx.response.body = {
       code: 1,
       data: user,
       token: user.token,
-      msg: '登录成功'
+      message: '登录成功'
     }
 
   } catch (err) {
     console.log('mylog', err)
   }
+}
+
+//用户退出登录
+exports.userSignout = async (ctx, next) => {
+  let body = ctx.request.body
+  let userId = body.userId
+
+  try {
+    let user = await User.findOne({_id: userId})
+
+    if (user === null) {
+      ctx.response.body = {
+        code: 0,
+        data: null,
+        message: '该用户不存在'
+      }
+      return
+    }
+
+    isSignin = false
+
+    ctx.response.body = {
+      code: 1,
+      data: user,
+      message: '退出登录成功'
+    }
+  } catch (err) {
+    console.log('mylog', err)
+  }
+}
+
+/**
+ * 验证是否登录了
+ * @param ctx
+ * @param next
+ * @returns {Promise.<void>}
+ */
+exports.verifyLogin = async (ctx, next) => {
+  let token = ctx.request.query.token || ctx.request.body.token || ctx.request.body.fields.token || ctx.request.get('authorization')
+
+  const returnNotLogin = () => {
+    ctx.response.body = {
+      code : 2,
+      data : null,
+      message : '该用户还没登录'
+    }
+  }
+
+  try {
+    if (isSignin === false) {
+      returnNotLogin()
+      return
+    }
+
+    let profile = await jwt.verify(token, config.secret)
+    if (profile !== null) {
+      await next()
+    }
+  } catch (err) {
+    if (err) {
+      isSignin = false
+      returnNotLogin()
+    }
+  }
+}
+
+/**
+ * 验证权限 1 是超级管理员 0 不是超级管理员
+ * @param ctx
+ * @param next
+ * @returns {Promise.<void>}
+ */
+exports.verifyAuthority = async (ctx, next) => {
+  let token = ctx.request.query.token || ctx.request.body.token || ctx.request.body.fields.token || ctx.request.get('authorization')
+
+  let user = await User.findOne({token: token})
+
+  if (user.isAdmin !== 1) {
+    ctx.response.body = {
+      code : 0,
+      data : null,
+      message : '操作失败,因为您不是管理员'
+    }
+    return
+  }
+
+  await next()
+
 }

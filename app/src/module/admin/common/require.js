@@ -1,5 +1,7 @@
 import axios from 'axios';
 import * as qs from 'qs';
+//引入 vuex
+import store from '@admin/vuex';
 
 import { Message } from 'element-ui';
 
@@ -12,11 +14,9 @@ const MAX_RES_CODE = 300;
 const CONTENT_TYPE = 'application/x-www-form-urlencoded';
 
 const SUCCESS_CODE = 1;
+const NO_LOGIN_CODE = 2;
 
-const store = createStore('local');
-
-const AUTH_TOKEN = store.get('authToken');
-// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+const localStore = createStore('local');
 
 //请求状态码是否ok
 const isOk = (status) => {
@@ -31,7 +31,7 @@ const requireCatch = (res) => {
   if ((typeof res === 'number' && !isOk(res)) || (res.response && !isOk(res.response.status))) {
     Message.error({ message: '系统出现错误了~' + res });
   }
-  if (res.code && res.code !== SUCCESS_CODE) {
+  if (typeof res.code !== 'undefined' && res.code !== SUCCESS_CODE) {
     Message.warning({ message: res.message });
   }
   return Promise.reject(res);
@@ -52,17 +52,23 @@ export const get = (opts = {}, commit) => {
   //合并对象
   setting = Object.assign(setting, opts);
 
-  setting.params.token = AUTH_TOKEN;
+  setting.params.token = localStore.get('authToken');
 
   return axios(setting)
     .then((res) => {
-      if (res.status < MIN_RES_CODE || res.status > MAX_RES_CODE) {
-        return Promise.reject(new Error(res.status));
+      let code = res.data.code;
+      if (!isOk(res.status)) {
+        return Promise.reject(res.status);
       }
 
-      if (res.data.code === SUCCESS_CODE) {
+      if (code === SUCCESS_CODE) {
         return res.data;
       }
+
+      if (code === NO_LOGIN_CODE) {
+        store.commit('showLogin');
+      }
+
       return Promise.reject(res.data);
     }).catch((res) => {
       return requireCatch(res);
@@ -87,22 +93,24 @@ export const post = (opts = {}, commit) => {
   //合并对象
   setting = Object.assign(setting, opts);
 
-  setting.data.token = AUTH_TOKEN;
-
+  setting.data.token = localStore.get('authToken');
 
   //data参数序列化
   setting.data = qs.stringify(opts.data);
 
-
   return axios(setting)
     .then(res => {
-
+      let code = res.data.code;
       if (!isOk(res.status)) {
         return Promise.reject(res.status);
       }
 
-      if (res.data.code === SUCCESS_CODE) {
+      if (code === SUCCESS_CODE) {
         return res.data;
+      }
+
+      if (code === NO_LOGIN_CODE) {
+        store.commit('showLogin');
       }
 
       return Promise.reject(res.data);
@@ -140,16 +148,22 @@ export const upload = (opts = {}, commit) => {
   //合并对象
   setting = Object.assign(setting, opts);
 
-  setting.data.token = AUTH_TOKEN;
+  setting.data.token = localStore.get('authToken');;
 
   return axios(setting).then((res) => {
+    let code = res.data.code;
     if (!isOk(res.status)) {
       return Promise.reject(res.status);
     }
 
-    if (res.data.code === SUCCESS_CODE) {
+    if (code === SUCCESS_CODE) {
       return res.data;
     }
+
+    if (code === NO_LOGIN_CODE) {
+      store.commit('showLogin');
+    }
+
     return Promise.reject(res.data);
 
   }).catch(res => {

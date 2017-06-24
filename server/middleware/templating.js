@@ -7,7 +7,6 @@
 const nunjucks = require('nunjucks');
 
 function templating(path, opts) {
-
     var autoescape = opts.autoescape === undefined ? true : opts.autoescape,
         noCache = opts.noCache || false,
         watch = opts.watch || false,

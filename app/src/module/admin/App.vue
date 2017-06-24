@@ -4,9 +4,13 @@
       <v-header></v-header>
       <v-sidebar></v-sidebar>
 
+      <login-view></login-view>
+
       <div class="view-wrapper">
         <div class="view-body">
-          <router-view class="all-transition"></router-view>
+
+          <router-view class="all-transition" v-if="isShowRouterView"></router-view>
+
         </div>
       </div>
 
@@ -19,17 +23,25 @@
 
   import vHeader from './components/Header.vue';
   import vSidebar from './components/Sidebar.vue';
+  import LoginView from './components/Login.vue';
+
   export default {
     name: 'app',
     data (){
       return {};
     },
     beforeMount (){
-        //
+      //
     },
     components: {
       vHeader,
-      vSidebar
+      vSidebar,
+      LoginView
+    },
+    computed: {
+      isShowRouterView (){
+        return this.$store.state.global.isShowRouterView;
+      }
     }
   };
 </script>
@@ -48,8 +60,7 @@
     overflow: hidden;
   }
 
-
-  .view-wrapper{
+  .view-wrapper {
     margin-top: 50px;
     margin-left: 150px;
     width: auto;
@@ -61,7 +72,8 @@
     overflow: auto;
     background: #FFF;
   }
-  .view-body{
+
+  .view-body {
     width: auto;
     position: absolute;
     top: 0px;

@@ -17,7 +17,7 @@
             <el-input type="password" v-model="loginForm.password" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('loginForm')">登录</el-button>
+            <el-button type="primary" @click="login('loginForm')">登录</el-button>
           </el-form-item>
         </el-form>
 
@@ -37,17 +37,10 @@
   import createStore from '@/common/storage';
   import { checkPhone } from '@/common/validators';
 
-  const store = createStore('local');
+  const localStore = createStore('local');
 
   export default {
     data() {
-      const validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入密码'));
-        } else {
-          callback();
-        }
-      };
       return {
         loginForm: {
           password: '',
@@ -58,7 +51,7 @@
             { validator: checkPhone, trigger: 'blur' }
           ],
           password: [
-            { validator: validatePass, trigger: 'blur' }
+            { required: true, message: '请输入密码', trigger: 'blur' }
           ]
         }
       };
@@ -72,7 +65,7 @@
 
     },
     methods: {
-      submitForm(formName) {
+      login(formName) {
         this.$refs[formName].validate((valid) => {
           if (!valid) {
             return;
@@ -84,7 +77,10 @@
             data : this.loginForm
           }).then(res => {
 
-            store.set('authToken', res.token);
+            //存储数据到本地
+            localStore.set('userInfo', res.data);
+            localStore.set('authToken', res.token);
+
             location.href = '/module/admin.html#/index';
           }).catch(err => {
           });

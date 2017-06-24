@@ -20,7 +20,7 @@
             <el-input type="password" v-model="registerForm.checkPass" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('registerForm')">注册</el-button>
+            <el-button type="primary" @click="register('registerForm')">注册</el-button>
           </el-form-item>
         </el-form>
 
@@ -91,7 +91,7 @@
 
     },
     methods: {
-      submitForm(formName) {
+      register(formName) {
         this.$refs[formName].validate((valid) => {
           if (!valid) {
             return;

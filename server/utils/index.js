@@ -31,19 +31,3 @@ exports.dateFormat = (date, fmt) => {
 
   return fmt;
 };
-
-exports.returnData =  (obj) => {
-  if (obj.err) {
-    obj.res.json({
-      code: 0,
-      msg: obj.errMsg || '操作失败',
-      data: obj.data || null
-    })
-  } else {
-    obj.res.json({
-      code: 1,
-      msg: obj.successMsg ||'操作成功',
-      data: obj.data || null
-    })
-  }
-};

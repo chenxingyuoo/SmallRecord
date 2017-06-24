@@ -51,7 +51,7 @@ exports.saveNews = async (ctx, next) => {
       ctx.response.body = {
         code: 1,
         data: article,
-        msg: '更新成功'
+        message: '更新成功'
       }
 
     } else {
@@ -66,7 +66,7 @@ exports.saveNews = async (ctx, next) => {
       ctx.response.body = {
         code: 1,
         data: data,
-        msg: '创建成功'
+        message: '创建成功'
       }
 
     }
@@ -102,7 +102,7 @@ exports.getNewsList = async (ctx, next) => {
         totalPage: totalPage,
         list: data
       },
-      msg: '获取成功'
+      message: '获取成功'
     }
 
   } catch (err) {
@@ -125,7 +125,7 @@ exports.getOneNews = async (ctx, next) => {
     ctx.response.body = {
       code: 1,
       data: data,
-      msg: '获取文章成功成功'
+      message: '获取文章成功成功'
     }
 
   } catch (err) {
@@ -150,7 +150,7 @@ exports.delOneNews = async (ctx, next) => {
       data: [
         data
       ],
-      msg: '删除成功'
+      message: '删除成功'
     }
 
   } catch (err) {
