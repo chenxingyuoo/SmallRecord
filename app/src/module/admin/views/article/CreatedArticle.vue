@@ -5,6 +5,10 @@
 
     <el-form ref="form" :model="editForm" :rules="rules" label-width="60px">
 
+      <el-form-item label="标题" prop="title">
+        <el-input required v-model="editForm.title" placeholder="文章标题"></el-input>
+      </el-form-item>
+
       <el-form-item label="封面">
         <div class="news-cover form-item-content" @click="clickFile">
           <img :src="editForm.cover" class="wh100" alt="加载中">
@@ -13,8 +17,10 @@
         </div>
       </el-form-item>
 
-      <el-form-item label="标题" prop="title">
-        <el-input required v-model="editForm.title" placeholder="文章标题"></el-input>
+      <el-form-item label="分类">
+        <el-checkbox-group v-model="editForm.category" @change="checkboxChange">
+          <el-checkbox v-for="(item, index) in category" :label="item.name" :key="index"></el-checkbox>
+        </el-checkbox-group>
       </el-form-item>
 
       <el-form-item label="描述">
@@ -22,7 +28,8 @@
       </el-form-item>
 
       <el-form-item label="内容" prop="editValue">
-        <mavon-editor v-model="editForm.editValue" ref="mavonEditor" style="height: 500px;" @change="editChange"></mavon-editor>
+        <mavon-editor v-model="editForm.editValue" ref="mavonEditor" style="height: 500px;"
+                      @change="editChange"></mavon-editor>
       </el-form-item>
 
       <el-form-item label="">
@@ -37,40 +44,43 @@
 <script>
 
   import { mapGetters, mapActions } from 'vuex';
+  import { indexOfByAttr } from '@/common/utils';
 
   import defaultCover from '@/assets/img/default-cover.png';
 
   let opts = {
-    create : {
-      title : '新增文章',
-      tips : '创建成功'
+    create: {
+      title: '新增文章',
+      tips: '创建成功'
     },
-    update : {
-      title : '更新文章',
-      tips : '更新成功'
+    update: {
+      title: '更新文章',
+      tips: '更新成功'
     }
   };
 
   export default {
     data() {
       return {
-        opts : opts.create,
+        opts: opts.create,
         articleId: null,
+        selectCategory : [],
         editForm: {
           id: this.$route.query.id,
           title: '',
           desc: '',
           editValue: '',
           content: '',
+          category: [],
           file: null,
           cover: defaultCover
         },
-        rules : {
+        rules: {
           title: [
-            { required: true, message: '请输入文章标题', trigger: 'blur' }
+            {required: true, message: '请输入文章标题', trigger: 'blur'}
           ],
-          editValue : [
-            { required: true, message: '请输入文章内容'}
+          editValue: [
+            {required: true, message: '请输入文章内容'}
           ]
         }
       };
@@ -82,7 +92,11 @@
     mounted (){
 
     },
-    computed: {},
+    computed: {
+      ...mapGetters({
+        category: 'getCategory'
+      })
+    },
     methods: {
       ...mapActions([
         'fetchOneArticle',
@@ -103,6 +117,7 @@
           desc: '',
           content: '',
           editValue: '',
+          category : [],
           file: null,
           cover: defaultCover
         };
@@ -126,7 +141,6 @@
             editForm.desc = res.desc;
             editForm.editValue = res.editValue;
             editForm.cover = res.cover;
-
           });
       },
       createdArticle(e) {
@@ -136,6 +150,7 @@
             return;
           }
 
+          this.editForm.category = this.editForm.category.join(',');
           this.editForm.content = this.$refs.mavonEditor['d_render'];
 
           this.saveArticle(this.editForm).then(res => {
@@ -147,13 +162,16 @@
         });
       },
       //编辑内容改变
-      editChange(value,reder){
+      editChange(value, reder){
         this.editForm.editValue = value;
         this.$refs.form.validateField('editValue');
+      },
+      checkboxChange(a,b){
+        console.log('mylog', this);
       }
     },
-    watch : {
-      '$route' : function (route){
+    watch: {
+      '$route': function (route) {
         if (route.query.id) {
           this.updateArticleInit();
         } else {
@@ -168,20 +186,23 @@
   .news-cover {
     width: 150px;
     height: 150px;
-    border:1px solid #ddd;
+    border: 1px solid #ddd;
   }
-  .news-cover{
+
+  .news-cover {
     position: relative;
     cursor: pointer;
     overflow: hidden;
   }
-  .news-cover:hover .news-avatar-btn{
-    transform:translate3d(0,-25px,0);
-    -webkit-transform:translate3d(0,-25px,0);
-    -moz-transform:translate3d(0,-25px,0);
-    -o-transform:translate3d(0,-25px,0)
+
+  .news-cover:hover .news-avatar-btn {
+    transform: translate3d(0, -25px, 0);
+    -webkit-transform: translate3d(0, -25px, 0);
+    -moz-transform: translate3d(0, -25px, 0);
+    -o-transform: translate3d(0, -25px, 0)
   }
-  .news-avatar-btn{
+
+  .news-avatar-btn {
     position: absolute;
     width: 100%;
     text-align: center;

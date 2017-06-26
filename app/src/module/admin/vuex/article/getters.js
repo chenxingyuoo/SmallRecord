@@ -12,5 +12,9 @@ export default {
   //获取当前文章
   getOneArticle(state){
     return state.oneArticle;
+  },
+  //获取分类
+  getCategory(state){
+    return state.article.category;
   }
 };

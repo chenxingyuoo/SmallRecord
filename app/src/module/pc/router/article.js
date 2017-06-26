@@ -11,14 +11,48 @@ const createHomeView = (name) => {
   };
 };
 
-export default [
+const indexView = createHomeView('Index');
+
+export const categoryArticleRouter = [
   {
-    path: '/',
-    component: createHomeView('Index'),
-    meta: {
-      title : '首页'
-    }
+    path: '/all',
+    name : '全部',
+    component: indexView
   },
+  {
+    path: '/skating',
+    name : '轮滑',
+    component: indexView
+  },
+  {
+    path: '/technology',
+    name : '技术',
+    component: indexView
+  },
+  {
+    path: '/guitar',
+    name : '吉他',
+    component: indexView
+  },
+  {
+    path: '/travel',
+    name : '旅行',
+    component: indexView
+  },
+  {
+    path: '/life',
+    name : '生活',
+    component: indexView
+  },
+  {
+    path: '/books',
+    name : '书籍',
+    component: indexView
+  }
+];
+
+export default [
+  ...categoryArticleRouter,
   {
     path: '/articleDetails/:id',
     component: createHomeView('ArticleDetails'),
