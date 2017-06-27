@@ -1,13 +1,13 @@
-# 小记录
+# SmallRecord
 
-> 小记录，博客 O(∩_∩)O~
+> O(∩_∩)O~
 
 前端 : vue2 + vue-router2 + vuex2 + axios + element-ui
 后端 : koa2 + mongoose
 
-[github](https://github.com/chenxingyuoo/SmallRecord)
+[github](https://github.com/chenxingyuoo/SmallRecord) : https://github.com/chenxingyuoo/SmallRecord
 
-如果觉得有用的话可以给个star 😊
+如果觉得有用的话可以给个star😊
 
 ## 应用截图
 
@@ -104,11 +104,22 @@ npm run build 或者 npm run pm2
 
 文章的编辑与展示 使用 markdown 语法
 
+* ~~注册~~
+* ~~登录~~
+* ~~token验证~~
+* ~~权限控制~~ isAdmin === 1为管理员 ，要手动在数据设置。(不是管理员就不可以编辑和删除文章)
 * ~~编辑文章~~
 * ~~文章分类~~
 * ~~更新文章~~
 * ~~展示文章~~
 * ~~删除文章~~
 * ~~查看文章~~
+
+终端
+
+* ~~pc~~
+* webApp
+* Android
+* IOS
 
 
