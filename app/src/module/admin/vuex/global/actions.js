@@ -2,8 +2,7 @@
 
 import { post } from '@admin/common/require';
 import api from '@admin/common/api';
-import createStore from '@/common/storage';
-const localStore = createStore('local');
+import {localStore} from '@/common/storage';
 
 //刷新路由视图
 const reloadRouterView = (commit) => {

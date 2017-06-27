@@ -1,7 +1,7 @@
 {
-  "name": "vue-admin",
+  "name": "SmallRecord",
   "version": "1.0.0",
-  "description": "vue 后台管理系统脚手架",
+  "description": "vue2 搭建 SmallRecord 博客",
   "author": "陈星宇 <chenxy@communet.io>",
   "private": true,
   "scripts": {

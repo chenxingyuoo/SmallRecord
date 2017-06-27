@@ -13,10 +13,10 @@ const userControl = require('../controller/user')
 router.get('/', viewControl.index)
 
 //后台管理页面
-router.get('/admin', viewControl.adminView)
+router.get('/module/admin.html', viewControl.adminView)
 
 //pc端页面
-router.get('/pc', viewControl.pcView)
+router.get('/module/pc.html', viewControl.pcView)
 
 
 /**

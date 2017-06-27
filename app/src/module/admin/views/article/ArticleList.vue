@@ -85,6 +85,7 @@
       ]),
       getArticleData(){
         let params = {
+          categoryName : '全部',
           page : this.article.currPage,
           pageSize : this.$store.state.global.pageSize
         };

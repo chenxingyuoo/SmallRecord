@@ -34,10 +34,8 @@
 <script>
   import { post } from '@/common/require';
   import api from '@base/common/api';
-  import createStore from '@/common/storage';
+  import {localStore} from '@/common/storage';
   import { checkPhone } from '@/common/validators';
-
-  const localStore = createStore('local');
 
   export default {
     data() {

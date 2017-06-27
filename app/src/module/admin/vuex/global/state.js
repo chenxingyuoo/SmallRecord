@@ -2,7 +2,7 @@
  * Created by chenxingyu on 2017/5/10.
  */
 export default {
-  pageSize : 2,
+  pageSize : 10,
 
   userInfo : {}, //用户信息
 

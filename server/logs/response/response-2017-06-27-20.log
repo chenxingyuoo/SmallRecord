@@ -1,0 +1,13 @@
+[2017-06-27 20:29:51.759] [INFO] resLogger - 
+*************** response log start ***************
+request method: POST
+request originalUrl:  /userSignin
+request client ip:  ::1
+request body: 
+{"password":"123123","tel":"15622243679"}
+response time: 310ms
+response status: 200
+response body: 
+{"code":1,"data":{"_id":"594beef3c32a5f1357d4316a","__v":0,"updateAt":"1498148577508","createAt":"1498148577508","isAdmin":1,"desc":"","avatar":"","name":"","password":"$2a$10$9cQ2IJCsclG3f2YgMlyO6eqWnES1mMFyHl8oYI5IGsRgwuIsORB1G","tel":15622243679,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1OTRiZWVmM2MzMmE1ZjEzNTdkNDMxNmEiLCJpYXQiOjE0OTg1NjY1OTEsImV4cCI6MTQ5ODU3MDE5MX0.PVBGQo8y6fwmF4i5ZdkXvZS-cmvVWnHxWfvOdWhOsDE"},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1OTRiZWVmM2MzMmE1ZjEzNTdkNDMxNmEiLCJpYXQiOjE0OTg1NjY1OTEsImV4cCI6MTQ5ODU3MDE5MX0.PVBGQo8y6fwmF4i5ZdkXvZS-cmvVWnHxWfvOdWhOsDE","message":"登录成功"}
+*************** response log end ***************
+

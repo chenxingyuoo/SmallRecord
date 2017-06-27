@@ -1,12 +1,19 @@
 {
+  "name": "SmallRecord",
+  "version": "1.0.0",
+  "description": "SmallRecord 博客服务",
+  "author": "陈星宇 <chenxy@communet.io>",
+  "private": true,
   "scripts": {
     "start": "NODE_ENV=development node ./app.js",
-    "test": "NODE_ENV=test echo \"Error: no test specified\" && exit 1"
+    "build": "NODE_ENV=production node ./app.js",
+    "pm2": "NODE_ENV=production pm2 start ./app.js"
   },
   "dependencies": {
     "bcrypt": "^1.0.2",
     "browser-sync": "^2.18.12",
     "formidable": "^1.1.1",
+    "http-proxy-middleware": "^0.17.4",
     "jsonwebtoken": "^7.4.1",
     "koa": "^2.2.0",
     "koa-better-body": "^3.0.2",

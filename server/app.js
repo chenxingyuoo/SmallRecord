@@ -10,6 +10,7 @@ const logger = require('koa-logger')
 // const session = require("koa-session2")
 const bodyParser = require('koa-bodyparser')
 const koaBody = require('koa-body')
+const proxy = require('http-proxy-middleware')
 //log工具
 const logUtil = require('./utils/log_util')
 
@@ -79,6 +80,8 @@ app.use(async (ctx, next) => {
 //   key: "SESSIONID",   //default "koa:sess"
 //   maxAge: 500000      //设置session超时时间
 // }))
+
+// app.use('/module', proxy({target: 'http://localhost:3000', changeOrigin: true}));
 
 const router = require('./router')
 //添加路由中间件

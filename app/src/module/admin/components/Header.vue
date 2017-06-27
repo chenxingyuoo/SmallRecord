@@ -23,8 +23,7 @@
 </template>
 
 <script>
-  import createStore from '@/common/storage';
-  const localStore = createStore('local');
+  import {localStore} from '@/common/storage';
 
   export default {
     data() {

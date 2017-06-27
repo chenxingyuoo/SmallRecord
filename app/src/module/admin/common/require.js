@@ -5,7 +5,7 @@ import store from '@admin/vuex';
 
 import { Message } from 'element-ui';
 
-import createStore from '@/common/storage';
+import {localStore} from '@/common/storage';
 
 axios.defaults.baseURL = 'http://localhost:3000';
 
@@ -15,8 +15,6 @@ const CONTENT_TYPE = 'application/x-www-form-urlencoded';
 
 const SUCCESS_CODE = 1;
 const NO_LOGIN_CODE = 2;
-
-const localStore = createStore('local');
 
 //请求状态码是否ok
 const isOk = (status) => {

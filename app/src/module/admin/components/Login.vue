@@ -19,10 +19,9 @@
   import { mapActions,mapGetters } from 'vuex';
   import { post } from '@admin/common/require';
   import api from '@admin/common/api';
-  import createStore from '@/common/storage';
   import { checkPhone } from '@/common/validators';
 
-  const localStore = createStore('local');
+  import {localStore} from '@/common/storage';
 
   export default {
     data() {
