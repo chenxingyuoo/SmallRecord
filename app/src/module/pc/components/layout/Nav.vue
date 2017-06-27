@@ -1,7 +1,8 @@
 <template>
   <div class="aside-nav">
     <nav class="nav-list">
-      <router-link :to="'/'" class="item" exact>
+
+      <router-link to="/all" class="item" :class="{'router-link-active' : activeIndex === 1}" exact>
         <i class="iconfont icon-home"></i>
         <span>Home</span>
       </router-link>
@@ -17,7 +18,23 @@
 
 <script>
   export default {
-    name: 'nav'
+    name: 'nav',
+    props : ['activeIndex'],
+    data() {
+      return {
+
+      };
+    },
+    components: {
+
+    },
+    computed: {
+
+    },
+    beforeMount(){
+    },
+    mounted(){
+    }
   };
 </script>
 

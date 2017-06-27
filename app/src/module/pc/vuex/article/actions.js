@@ -22,7 +22,15 @@ export default {
       url: api.getNewsList,
       params: params
     }).then(res => {
-      commit('fetchArticleListSucc', res.data);
+
+      if (res.data && res.data.list.length !== 0) {
+        res.data.category = params.category;
+        commit('fetchArticleListSucc', res.data);
+
+        //页码+1
+        commit('pagePlus', params.category);
+      }
+      return res.data;
     });
   },
   //获取一篇文章

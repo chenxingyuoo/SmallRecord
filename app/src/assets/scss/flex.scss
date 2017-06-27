@@ -1,0 +1,91 @@
+/*盒子模型*/
+.display-flex{
+    display: flex;
+}
+.flex-wrap{
+    flex-wrap:wrap;
+}
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.flex-start{
+    display: flex;
+    justify-content: flex-start;
+}
+.flex-column-start{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.flex-start-center{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.flex-end{
+    display: flex;
+    justify-content: flex-end;
+}
+.flex-end-center{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.flex1-end-center{
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+
+.flex-column-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.flex-column-flex1{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.flex1{
+    display: flex;
+    flex: 1;
+}
+.flex1-center{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex1-column-center{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+// display-box
+.display-box{
+    display: -webkit-box;
+}
+.box1-center{
+    display: -webkit-box;
+    -webkit-box-flex: 1;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+}
+.box1-column-center{
+    display: -webkit-box;
+    -webkit-box-flex: 1;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    -webkit-box-orient: block-axis;
+}

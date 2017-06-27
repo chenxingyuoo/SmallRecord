@@ -13,20 +13,20 @@ const createHomeView = (name) => {
 
 const indexView = createHomeView('Index');
 
-export const categoryArticleRouter = [
+export const categoryArticleRouters = [
   {
     path: '/all',
     name : '全部',
     component: indexView
   },
   {
-    path: '/skating',
-    name : '轮滑',
+    path: '/technology',
+    name : '技术',
     component: indexView
   },
   {
-    path: '/technology',
-    name : '技术',
+    path: '/skating',
+    name : '轮滑',
     component: indexView
   },
   {
@@ -52,7 +52,7 @@ export const categoryArticleRouter = [
 ];
 
 export default [
-  ...categoryArticleRouter,
+  ...categoryArticleRouters,
   {
     path: '/articleDetails/:id',
     component: createHomeView('ArticleDetails'),

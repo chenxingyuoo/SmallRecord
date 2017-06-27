@@ -3,9 +3,10 @@
     <nav class="navbar">
       <div class="navbar-container container">
         <div class="navbar-header">
-          <span class="navbar-logo">SmallRecord</span>
+          <router-link to="/all" class="navbar-logo">
+            SmallRecord
+          </router-link>
         </div>
-
       </div>
     </nav>
   </header>
@@ -47,7 +48,6 @@ export default {
           justify-content: space-between;
 
           .navbar-logo {
-            width: 10em;
             font-family: 'Comic Sans MS';
             font-size: 22px;
             color: #333;

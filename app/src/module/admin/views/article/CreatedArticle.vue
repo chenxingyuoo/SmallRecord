@@ -19,7 +19,7 @@
 
       <el-form-item label="分类">
         <el-checkbox-group v-model="editForm.category" @change="checkboxChange">
-          <el-checkbox v-for="(item, index) in category" :label="item.name" :key="index"></el-checkbox>
+          <el-checkbox v-for="(item, index) in category" :label="item" :key="index"></el-checkbox>
         </el-checkbox-group>
       </el-form-item>
 

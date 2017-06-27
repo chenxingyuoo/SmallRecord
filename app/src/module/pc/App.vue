@@ -33,6 +33,7 @@
 
 <style lang="scss" rel="stylesheet/scss">
   @import './../../assets/scss/variables';
+  @import '../../assets/scss/mixin';
 
   body{
     font-size: 14px;
@@ -45,12 +46,9 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-
-
   #main {
     position: relative;
     padding-top: 80px;
-    padding-bottom: 20px;
 
     .main-content {
       float: left;
@@ -60,6 +58,12 @@
       overflow: hidden;
       transition : width 0.35s;
     }
+  }
+
+  .empty-box{
+    text-align: center;
+    width: 100%;
+    @include absCenterY();
   }
 
 </style>

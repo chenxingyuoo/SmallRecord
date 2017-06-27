@@ -7,24 +7,32 @@
 export default {
   //获取文章列表成功
   fetchArticleListSucc(state, data = {}){
-    let articleData = state.article.data;
-    if (!articleData.list) {
-      state.article.data = data;
+    let category = data.category;
+    let currCategoryObj = state.article[category];
+    let currCategoryData = currCategoryObj.data;
+    if (!currCategoryData.list) {
+      state.article[category].data = data;
       return;
     }
 
-    //往数据添加数据
-    for (let key in articleData) {
+    //添加数据
+    for (let key in state.article[category]){
       if (key !== 'list') {
-        state.article.data[key] = data[key];
+        state.article[category].data[key] = data[key];
       } else {
-        state.article.data.list.push(...data.list);
+        state.article[category].data.list.push(...data.list);
       }
     }
   },
+
+  //获取文章列表初始化
+  fetchArticleListInit(state, category){
+    state.article[category].currPage = 1;
+  },
+
   //页面 +1
-  pagePlus(state){
-    state.article.currPage++;
+  pagePlus(state, category){
+    state.article[category].currPage++;
   },
   //获取一篇文章成功
   fetchOneArticleSucc(state, data = {}){

@@ -2,13 +2,12 @@
   <div class="carrousel">
 
     <transition name="module" mode="out-in">
-      <div class="empty-box" v-if="!article.data.list">
-        <slot>No Result Article.</slot>
+      <div class="empty-box" v-if="articleList && articleList.length === 0">
+        <slot>暂无文章数据</slot>
       </div>
-      <swiper :options="swiperOption" v-else>
-        <swiper-slide v-for="(article, index) in article.data.list.slice(0,9)" :key="index">
+      <swiper :options="swiperOption" v-else-if="articleList && articleList.length !== 0">
+        <swiper-slide v-for="(article, index) in articleList" :key="index">
           <div class="content">
-            <!--<img :src="">-->
             <div class="img" :style="{backgroundImage:'url('+ buildCover(article.cover) +')'}"></div>
             <router-link :to="`/articleDetails/${article._id}`" class="title">
               <span>{{ article.title }}</span>
@@ -47,13 +46,24 @@
     computed: {
       ...mapGetters({
         article: 'getArticle'
-      })
+      }),
+      articleList() {
+        this.category = this.$route.path.replace('/', '');
+        let articleData = this.article[this.category].data;
+        let articleList = articleData.list;
+        if (articleList && articleList.length !== 0) {
+          let num = Math.min(articleList.length, 9);
+          return articleData.list.slice(0, num);
+        }
+
+        return [];
+      }
     },
     beforeMount(){
 
     },
     mounted(){
-
+      console.log('mylog', this);
     },
     methods: {
       buildCover(cover) {

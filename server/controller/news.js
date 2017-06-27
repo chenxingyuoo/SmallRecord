@@ -81,7 +81,7 @@ exports.saveNews = async (ctx, next) => {
 //获取文章列表
 exports.getNewsList = async (ctx, next) => {
   let query = ctx.request.query
-  let category = query.category;
+  let categoryName = query.categoryName;
   let page = Number.parseInt(query.page)
   let pageSize = Number.parseInt(query.pageSize)
   let currentPage = (Number(page) - 1) * pageSize
@@ -90,8 +90,8 @@ exports.getNewsList = async (ctx, next) => {
   try {
 
     //找到指定分类的文章
-    let allData = await News.find({$text:{$search: category}})
-    let data = await News.find({$text:{$search: category}}).sort({updateAt: -1}).limit(pageSize).skip(currentPage)
+    let allData = await News.find({$text:{$search: categoryName}})
+    let data = await News.find({$text:{$search: categoryName}}).sort({updateAt: -1}).limit(pageSize).skip(currentPage)
 
     let totalPage = Math.ceil((allData.length) / pageSize)
     let isLastPage = page === pageSize
