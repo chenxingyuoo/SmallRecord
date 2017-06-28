@@ -5,6 +5,8 @@
 前端 : vue2 + vue-router2 + vuex2 + axios + element-ui
 后端 : koa2 + mongoose
 
+线上地址 ： http://smallrecord.3tstudio.cn
+
 [github](https://github.com/chenxingyuoo/SmallRecord) : https://github.com/chenxingyuoo/SmallRecord
 
 如果觉得有用的话可以给个star😊
