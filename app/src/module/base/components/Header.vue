@@ -46,14 +46,14 @@ export default {
           justify-content: space-between;
 
           .navbar-logo {
-            font-family: 'Comic Sans MS';
+            /*font-family: 'Comic Sans MS';*/
             font-size: 22px;
             color: #333;
           }
 
           .navbar-slogan {
             color: $primary;
-            font-family: CenturyGothic;
+            /*font-family: CenturyGothic;*/
           }
 
           .navbar-link {

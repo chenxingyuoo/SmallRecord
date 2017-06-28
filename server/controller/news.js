@@ -19,8 +19,10 @@ exports.saveNews = async (ctx, next) => {
   if (file) {
     let tempPath = file.path
     let ext = path.extname(file.name)
-    newPath = path.join('public/upload', parseInt(Math.random() * 100) + Date.parse(new Date()).toString() + ext)
-    let absolutePath = path.join(__dirname, '..', newPath)
+    let uploadPath = path.join('public/upload', parseInt(Math.random() * 100) + Date.parse(new Date()).toString() + ext)
+    let absolutePath = path.join(__dirname, '..', uploadPath)
+
+    newPath = ctx.origin + '/' + uploadPath;
 
     let stream = fs.createWriteStream(absolutePath)//创建一个可写流
     fs.createReadStream(tempPath).pipe(stream)//可读流通过管道写入可写流

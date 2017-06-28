@@ -30,35 +30,11 @@ const router = new VueRouter({
  * @returns {boolean}
  */
 const checkRouterPath = (to, from, next) => {
-  let toPath = to.path;
-  let isChildrenPath = false;
-
-  //判断是否选中子路由
-  for (let i = 0, len = routes.length; i < len; i++) {
-    let route = routes[i];
-    let children = route.children;
-
-    if (children && indexOfByAttr(children, to, 'path') !== -1) {
-      isChildrenPath = true;
-      break;
-    }
-  }
-
   //判断是否存在路由 ， 不存在则跳转正确的路由
-  if (isChildrenPath === false && indexOfByAttr(routes, to, 'path') === -1) {
-    let index = toPath.indexOf('/', 1);
-    let like = {
-      path: index !== - 1 ? index : toPath
-    };
-
-    if (indexOfByAttr(routes, like, 'path') === -1) {
-      next({path: '/all'});
-    } else {
-      next({path: like.path});
-    }
+  if (!to.meta.isRouter) {
+    next({path: '/all'});
     return false;
   }
-
   return true;
 };
 

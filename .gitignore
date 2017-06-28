@@ -1,6 +1,5 @@
 .idea
 .DS_Store
-dist/
 old-app/
 node_modules/
 npm-debug.log*

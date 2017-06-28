@@ -15,6 +15,6 @@ export default [
   {
     path: '/music',
     component: createHomeView('Index'),
-    meta: { title : '音乐', scrollTop : 0}
+    meta: { title : '音乐', scrollTop : 0, isRouter: true}
   }
 ];

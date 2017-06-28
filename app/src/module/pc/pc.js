@@ -10,7 +10,7 @@ import App from './App.vue';
 import store from './vuex/';       //状态管理
 import router from './router';     //路由
 
-import { timeToNow, transTab} from '@/common/filters';
+import { timeToNow } from '@/common/filters';
 
 sync(store, router);
 

@@ -67,7 +67,7 @@
         font-weight: 700;
         border-radius: 1px;
         color: #777;
-        font-family: CenturyGothic;
+        /*font-family: CenturyGothic;*/
         margin-bottom: .5em;
 
         &.app {
