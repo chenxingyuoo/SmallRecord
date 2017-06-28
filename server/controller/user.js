@@ -73,7 +73,6 @@ exports.userSignin = async (ctx, next) => {
 
   try {
     let user = await User.findOne({tel: tel})
-    let userId = user._id
     if (user === null) {
       ctx.response.body = {
         code: 0,
@@ -95,13 +94,13 @@ exports.userSignin = async (ctx, next) => {
       return
     }
 
+    let userId = user._id
+
     user.token = jwt.sign({
       userId : userId
     } , config.secret, {
       expiresIn: 60 * 60   // 1小时过期
     })
-
-    console.log('mylog', user.token)
 
     user = await user.save()
 
