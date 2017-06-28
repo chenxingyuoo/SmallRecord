@@ -4,8 +4,8 @@
 
 'use strict';
 
-import { get, post, upload } from '@admin/common/require';
-import api from '@admin/common/api';
+import { get, post, upload } from '@/common/require';
+import api from '@pc/common/api';
 
 export default {
   //保存文章
