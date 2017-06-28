@@ -10,7 +10,6 @@ const CONTENT_TYPE = 'application/x-www-form-urlencoded';
 
 const SUCCESS_CODE = 1;
 
-
 //请求状态码是否ok
 const isOk = (status) => {
   if (status >= MIN_RES_CODE && status <= MAX_RES_CODE) {
@@ -22,10 +21,10 @@ const isOk = (status) => {
 //网络请求捕获错误
 const requireCatch = (res) => {
   if ((typeof res === 'number' && !isOk(res)) || (res.response && !isOk(res.response.status))) {
-    alert({ message: '系统出现错误了~' + res });
+    alert('系统出现错误了~' + res);
   }
-  if (res.code && res.code !== SUCCESS_CODE) {
-    alert({ message: res.message });
+  if (res.code !== undefined && res.code !== SUCCESS_CODE) {
+    alert(res.message);
   }
   return Promise.reject(res);
 };
