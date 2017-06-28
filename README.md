@@ -27,6 +27,8 @@
 
 ### 前端
 
+注意 : 修改过 webpack 配置 ， 变成多页应用 + 单页应用 。多页应用的具体配置可以查看 https://github.com/jarvan4dev/vue-multi-page
+
 条件: Node.js版本(>=4.x), npm版本3+.
 
 ``` bash
