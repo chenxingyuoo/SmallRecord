@@ -33,6 +33,10 @@ const newsSchema = new mongoose.Schema({
     type : String,
     default : ''
   },
+  readingNum : {
+    type : Number,
+    default : 0
+  },
   createAt: {
     type : String,
     default : ''

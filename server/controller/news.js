@@ -126,7 +126,11 @@ exports.getOneNews = async (ctx, next) => {
       return
     }
 
-    let data = await News.findOne({_id: id})
+    let news = await News.findOne({_id: id})
+
+    news.readingNum = news.readingNum + 1;
+
+    let data = await news.save();
 
     ctx.response.body = {
       code: 1,
