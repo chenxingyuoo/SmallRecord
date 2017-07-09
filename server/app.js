@@ -39,6 +39,7 @@ app.use(templating('../app/dist/module/', {
     watch: !isProduction
 }))
 
+
 //允许跨域
 app.use(async (ctx, next) => {
   ctx.response.set('Access-Control-Allow-Origin', 'http://localhost:3050')
@@ -71,7 +72,6 @@ app.use(async (ctx, next) => {
 
     //记录异常日志
     logUtil.logError(ctx, error, `${execTime}ms`)
-
   }
 })
 

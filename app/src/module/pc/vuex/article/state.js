@@ -6,30 +6,37 @@
 export default {
   article: {
     all : {
-      currPage : 1,
-      data : {}
-    },
-    skating : {
+      name : '全部',
       currPage : 1,
       data : {}
     },
     technology : {
+      name : '技术',
+      currPage : 1,
+      data : {}
+    },
+    skating : {
+      name : '轮滑',
       currPage : 1,
       data : {}
     },
     guitar : {
+      name : '吉他',
       currPage : 1,
       data : {}
     },
     travel : {
+      name : '旅行',
       currPage : 1,
       data : {}
     },
     life : {
+      name : '生活',
       currPage : 1,
       data : {}
     },
     books : {
+      name : '书籍',
       currPage : 1,
       data : {}
     }

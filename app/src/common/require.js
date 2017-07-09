@@ -1,8 +1,6 @@
 import axios from 'axios';
 import * as qs from 'qs';
 
-console.log('mylog', process.env);
-
 let baseURL = process.env.NODE_ENV === 'development' ?
   'http://localhost:3000' : 'http://smallrecord.3tstudio.cn';
 

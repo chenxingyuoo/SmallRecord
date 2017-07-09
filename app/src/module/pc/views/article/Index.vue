@@ -11,7 +11,7 @@
     <div class="main-content pb-30">
 
       <div class="category-box mb-15">
-        <router-link v-for="(item, index) in categoryArticleRouters" class="category-item" :to="{path : item.path }" :key="index">{{ item.name }}</router-link>
+        <router-link v-for="(item, key) in categoryArticleRouters" class="category-item" :to="{path : key }" :key="key">{{ item.name }}</router-link>
       </div>
 
       <carrousel></carrousel>
@@ -24,9 +24,6 @@
 
 <script>
 
-  //分类文章路由
-  import { categoryArticleRouters } from '@pc/router/article';
-
   import Nav from '@pc/components/layout/Nav.vue';
   import Carrousel from '@pc/components/article/Carrousel.vue';
   import ArticleList from '@pc/components/article/List.vue';
@@ -34,7 +31,6 @@
   export default {
     data() {
       return {
-        categoryArticleRouters : categoryArticleRouters
       };
     },
     components: {
@@ -42,7 +38,11 @@
       Carrousel,
       ArticleList
     },
-    computed: {},
+    computed: {
+      categoryArticleRouters () {
+        return this.$store.state.article.article;
+      }
+    },
     beforeMount(){
 
     },

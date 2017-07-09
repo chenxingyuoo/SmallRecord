@@ -32,6 +32,7 @@ var baseConfig = {
       '@': resolve('src'),
       '@admin': resolve('src/module/admin'),
       '@pc': resolve('src/module/pc'),
+      '@webapp': resolve('src/module/webapp'),
       '@base': resolve('src/module/base')
     }
   },

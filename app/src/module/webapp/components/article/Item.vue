@@ -1,7 +1,7 @@
 <template>
   <div class="article-list-item">
-    <div class="item-content" >
-      <div class="item-cover" >
+    <a class="item-content flex-start-center">
+      <div class="item-cover">
         <router-link :to="{ path : `/articleDetails/${item._id}`}">
           <img class="item-cover-img"
                :src="buildCover(item.cover)"
@@ -9,7 +9,7 @@
                :title="item.title">
         </router-link>
       </div>
-      <div class="item-body">
+      <div class="item-body flex-column-flex1">
         <h4 class="item-title">
           <router-link :to="{ path : `/articleDetails/${item._id}` }" :title="item.title">{{ item.title }}</router-link>
         </h4>
@@ -19,36 +19,9 @@
             <i class="iconfont icon-clock"></i>
             <span>{{ item.updateAt }}</span>
           </span>
-          <!--<span class="views">
-            <i class="iconfont icon-eye"></i>
-            <span>{{ item.meta.views || 0 }}</span>
-          </span>
-          <span class="comments">
-            <i class="iconfont icon-comment"></i>
-            <span>{{ item.meta.comments || 0 }}</span>
-          </span>
-          <span class="likes">
-            <i class="iconfont icon-like"></i>
-            <span>{{ item.meta.likes || 0 }}</span>
-          </span>
-          <span class="categories">
-            <i class="iconfont icon-list"></i>
-            <span v-if="!item.category.length">未分类</span>
-            <router-link :key="index"
-                         :to="`/category/${category.slug}`"
-                         v-for="(category, index) in item.category">{{ category.name }}</router-link>
-          </span>
-          <span class="tags" v-show="false">
-            <i class="iconfont icon-tag"></i>
-            <span v-if="!item.tag.length">无</span>
-            <router-link :key="index"
-                         :to="`/tag/${tag.slug}`"
-                         v-for="(tag, index) in item.tag">{{ tag.name }}</router-link>
-                          </span>-->
-
         </div>
       </div>
-    </div>
+    </a>
   </div>
 </template>
 
@@ -77,40 +50,32 @@
   @import '../../../../assets/scss/variables';
   @import '../../../../assets/scss/mixin';
   .article-list-item {
-    margin-bottom: 1em;
     background-color: $module-bg;
-
-    &:last-child {
-      margin: 0;
-    }
-
-    &:hover {
-      background-color: $module-hover-bg;
-    }
-
     > .item-content {
-      display: block;
       overflow: hidden;
-      height: 9.5em;
-      padding: .5em;
+      margin: 0 0.2rem;
+      border-bottom: 0.01rem solid hsla(0,0%,87%,.6);;
+      padding: 0.2rem 0;
+      -webkit-tap-highlight-color: rgba(0,0,0,.1);
+      -webkit-touch-callout: none;
 
       &:hover {
 
-        > .item-cover {
-
-          .item-cover-img {
-            opacity : .95;
-            transform : translateX(-0.5em);
-          }
+        .item-cover-img {
+          opacity : .95;
+          transform : translateX(-0.5em);
         }
       }
 
       > .item-cover {
-        float: left;
-        width: 12em;
-        height: 8.5em;
         overflow: hidden;
-
+        width: 2.5rem;
+        height: 2.2rem;
+        margin-right: 0.2rem;
+        a{
+          display: block;
+          height: 100%;
+        }
         .item-cover-img {
           min-width: 100%;
           width: calc(100% + 0.5em);
@@ -125,16 +90,13 @@
       }
 
       > .item-body {
-        float: right;
-        width: 28.5em;
-        height: 8.5em;
 
         > .item-title {
           font-size: 1em;
           font-weight: bold;
           color: #333;
-          margin-top: .2em;
-          margin-bottom: .5em;
+          margin-top: 0.1rem;
+          margin-bottom: 0.1rem;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -151,14 +113,13 @@
         }
 
         > .item-description {
-          font-size: .9em;
-          margin: 0;
+          font-size: 0.27rem;
           margin-bottom: 0.3em;
-          height: 5em;
+          height: 1rem;
           line-height: 1.8em;
           overflow: hidden;
           text-overflow: ellipsis;
-          @include clamp(3);
+          @include clamp(2);
         }
 
         > .item-meta {
@@ -172,6 +133,7 @@
           overflow: hidden;
           text-overflow: ellipsis;
           word-wrap: normal;
+
         }
       }
     }

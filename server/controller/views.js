@@ -4,7 +4,7 @@
 
 'use strict';
 
-//首页
+//注册登录页
 exports.index = async (ctx, next) => {
   ctx.render('base.html', {
     title: 'Welcome'
@@ -18,9 +18,16 @@ exports.adminView =  async (ctx, next) => {
   });
 };
 
-//后台管理系统页面
+//pc首页
 exports.pcView =  async (ctx, next) => {
   ctx.render('pc.html', {
+    title: 'Welcome'
+  });
+};
+
+//webapp首页
+exports.webappView = async (ctx, next) => {
+  ctx.render('webapp.html', {
     title: 'Welcome'
   });
 };

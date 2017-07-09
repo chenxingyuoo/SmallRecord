@@ -80,8 +80,8 @@
   @import '../../../../assets/scss/variables';
 
   .carrousel {
-    height: 15em;
-    margin-bottom: 1em;
+    height: 2.9rem;
+    margin-bottom: 0.1rem;
     position: relative;
     overflow: hidden;
     background-color: $module-bg;
@@ -90,7 +90,7 @@
 
       .content {
         width: 100%;
-        height: 15em;
+        height: 2.9rem;
         position: relative;
         overflow: hidden;
 
@@ -110,8 +110,8 @@
 
         .title {
           position: absolute;
-          top: 1.5rem;
-          right: 2rem;
+          top: 0.4rem;
+          right: 0.3rem;
           color: #333;
           background-color: rgba($module-hover-bg, .5);
           margin: 0;

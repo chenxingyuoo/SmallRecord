@@ -18,6 +18,9 @@ router.get('/module/admin.html', viewControl.adminView)
 //pc端页面
 router.get('/module/pc.html', viewControl.pcView)
 
+//webapp页面
+router.get('/module/webapp.html', viewControl.webappView)
+
 
 /**
  * 用户模块
