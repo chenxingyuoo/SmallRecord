@@ -112,13 +112,10 @@
           position: absolute;
           top: 0.4rem;
           right: 0.3rem;
-          color: #333;
           background-color: rgba($module-hover-bg, .5);
-          margin: 0;
-          padding: 0 .5em;
-          height: 2em;
-          line-height: 2em;
-          font-size: 1em;
+          padding: 0 0.2rem;
+          line-height: 0.52rem;
+          max-width: 5.8rem;
           font-weight: bold;
           border-radius: 1px;
           letter-spacing: .3px;

@@ -10,9 +10,11 @@
         </router-link>
       </div>
       <div class="item-body flex-column-flex1">
-        <h4 class="item-title">
-          <router-link :to="{ path : `/articleDetails/${item._id}` }" :title="item.title">{{ item.title }}</router-link>
-        </h4>
+        
+          <router-link :to="{ path : `/articleDetails/${item._id}` }" class="item-title text-overflow" :title="item.title">
+              {{ item.title }} 哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+          </router-link>
+        
         <p class="item-description" style="-webkit-box-orient: vertical;">{{ item.desc }}</p>
         <div class="item-meta">
           <span class="date">
@@ -90,30 +92,28 @@
       }
 
       > .item-body {
-
-        > .item-title {
-          font-size: 1em;
+         width: 3.3rem;
+              
+        .item-title {
+           margin-left: 0;
+          height: 0.45rem;
+          font-size: 0.3rem;
           font-weight: bold;
           color: #333;
           margin-top: 0.1rem;
           margin-bottom: 0.1rem;
           overflow: hidden;
           text-overflow: ellipsis;
-          white-space: nowrap;
-
-          > a {
-            margin-left: 0;
-
-            &:hover {
-              display: inline-block;
-              text-decoration: underline;
-              margin-left: .5em;
-            }
+          &:hover {
+            display: inline-block;
+            text-decoration: underline;
+            margin-left: .5em;
           }
+          
         }
 
         > .item-description {
-          font-size: 0.27rem;
+          font-size: 0.26rem;
           margin-bottom: 0.3em;
           height: 1rem;
           line-height: 1.8em;
@@ -123,9 +123,9 @@
         }
 
         > .item-meta {
-          font-size: .9em;
-          height: 2em;
-          line-height: 2em;
+          font-size: 0.26rem;
+          height: 0.5rem;
+          line-height: 0.5rem;
           display: flex;
           justify-content: flex-start;
           align-items: baseline;

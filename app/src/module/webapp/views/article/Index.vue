@@ -1,9 +1,9 @@
 <template>
   <div class="webapp-article">
 
-    <category></category>
+    <category ref="category"></category>
 
-    <div class="article-box" ref="articleBox" >
+    <div class="article-box" ref="articleBox" :style={height:articleBoxHeight}>
       <carrousel></carrousel>
 
       <article-list ref="articleList"></article-list>
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+  import * as common from '@/common/common';
   import DomScroll from '@/common/plugins/domScroll';
 
   import Category from '@webapp/components/article/Category.vue';
@@ -19,18 +20,22 @@
   import ArticleList from '@webapp/components/article/List.vue';
   export default {
     data() {
-      return {};
+      return {
+        articleBoxHeight : 0
+      };
     },
     components: {
       Category,
       Carrousel,
       ArticleList
     },
-    computed: {},
+    computed: {
+    },
     beforeMount(){
 
     },
     mounted(){
+      this.articleBoxHeight = common.winHeight - (this.$refs.category.$el.clientHeight * 2) + 'px';
       this.loadMore();
     },
     methods: {
@@ -39,14 +44,7 @@
         new DomScroll({
           el : this.$refs.articleBox,
           scrollDown: (scrollObj) => {
-
             self.$refs.articleList.$emit('loadMore', scrollObj);
-
-            //移除事件
-//            alert('滚动到底部');
-//            alert('没有数据就可以移除事件啦');
-//            scrollObj.isRemoveEvent = true;
-
           }
         });
       }
@@ -59,8 +57,11 @@
     padding-top: 0.8rem;
   }
   .article-box{
-    padding-top: 0.8rem;
+    position: fixed;
+    width: 100%;
+    top: 1.6rem;
+    left: 0;
     overflow-y: auto;
-    height: 10.6rem;
+    // height: 10.6rem;
   }
 </style>

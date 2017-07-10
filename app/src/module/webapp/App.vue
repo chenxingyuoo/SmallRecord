@@ -22,7 +22,7 @@
 <style lang="scss" rel="stylesheet/scss">
   @import '../../assets/scss/mixin';
   body{
-    font-size: 0.3rem;
+    font-size: 0.28rem;
   }
   .iconfont{
     font-size: 0.4rem;
