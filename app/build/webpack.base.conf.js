@@ -76,24 +76,12 @@ var baseConfig = {
     ]
   },
   plugins: [
-    //提取公共模块
+     //提取公共模块
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendors', // 公共模块的名称
       chunks: chunks,  // chunks是需要提取的模块
-      minChunks: chunks.length,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-        //     // more options:
-        //     // https://github.com/kangax/html-minifier#options-quick-reference
-      },
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
-    }),
-
-    // 配置提取出的样式文件
-    // new ExtractTextPlugin(utils.assetsPath('css/[name].[chunkhash].css'))
+      minChunks: Infinity
+    })
   ]
 }
 

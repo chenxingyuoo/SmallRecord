@@ -12,6 +12,9 @@ const userControl = require('../controller/user')
 //首页
 router.get('/', viewControl.index)
 
+//登录注册页
+router.get('/module/base.html', viewControl.base)
+
 //后台管理页面
 router.get('/module/admin.html', viewControl.adminView)
 

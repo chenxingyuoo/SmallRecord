@@ -4,8 +4,21 @@
 
 'use strict';
 
-//注册登录页
+
+const utils = require('../utils/index');
+
+//首页
 exports.index = async (ctx, next) => {
+  let userAgent = ctx.header['user-agent'];
+  if (utils.isPc(userAgent) === true) {
+    ctx.redirect('/module/pc.html');
+  } else{
+    ctx.redirect('/module/webapp.html');
+  }
+};
+
+//注册登录页
+exports.base = async (ctx, next) => {
   ctx.render('base.html', {
     title: 'Welcome'
   });

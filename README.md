@@ -67,7 +67,8 @@ npm run start
 >
 > 后台管理系统 ：http://localhost:3030/module/admin.html#/index
 > 登录注册页 ：http://localhost:3030/module/base.html
-> pc端首页 ： http://localhost:3030/module/pc.html#/all
+> pc端首页 ： http://localhost:3030/module/pc.html
+> webapp首页 ： http://localhost:3030/module/webapp.html
 
 
 ## 构建安装程序 (生产环境)
@@ -101,8 +102,8 @@ npm run build 或者 npm run pm2
 > 生产环境访问链接 ：
 >
 > 后台管理系统 ：http://localhost:3000/module/admin.html/#index
-> 登录注册页 ：http://localhost:3000/
-> pc端首页 ： http://localhost:3000/module/pc.html#/all
+> 登录注册页 ：http://localhost:3000/module/base.html
+> 首页 ： http://localhost:3000
 
 ## Todos
 
