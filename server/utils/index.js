@@ -34,7 +34,7 @@ exports.dateFormat = (date, fmt) => {
 
 exports.isPc = (userAgent) => {
   userAgent = userAgent.toLowerCase();
-  if (userAgent.match(/iphone|android|ipad|ipod|symbianos|windows phone|webos/)) {
+  if (userAgent.match(/iphone|android|ipad|ipod|symbianos|windows phone|micromessenger/)) {
     return false;
   }
   else {
