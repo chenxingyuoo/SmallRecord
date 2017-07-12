@@ -7,7 +7,7 @@
       <div class="logo">SmallRecord</div>
     </div>
     <div class="right flex-center">
-      <i class="ic-sousuo iconfont"></i>
+      <!--<i class="ic-sousuo iconfont"></i>-->
     </div>
   </header>
 </template>

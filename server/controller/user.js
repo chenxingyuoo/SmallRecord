@@ -130,7 +130,7 @@ exports.userSignout = async (ctx, next) => {
       ctx.response.body = {
         code: 0,
         data: null,
-        message: '该用户不存在'
+        message: '用户不存在'
       };
       return;
     }
@@ -160,7 +160,7 @@ exports.verifyLogin = async (ctx, next) => {
     ctx.response.body = {
       code: 2,
       data: null,
-      message: '该用户还没登录'
+      message: '请先登录'
     };
   };
 
