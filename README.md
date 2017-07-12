@@ -14,15 +14,15 @@
 ## 应用截图
 
 ### 登录注册页面
-
 ![](https://github.com/chenxingyuoo/markdown-image/blob/master/smallRecord/base.jpeg?raw=true)
 
 ### pc端首页
-
 ![](https://github.com/chenxingyuoo/markdown-image/blob/master/smallRecord/pc.jpeg?raw=true)
 
-### 后台管理系统
+### webapp首页
+![](https://github.com/chenxingyuoo/markdown-image/blob/master/smallRecord/webapp.jpeg?raw=true)
 
+### 后台管理系统
 ![](https://github.com/chenxingyuoo/markdown-image/blob/master/smallRecord/admin.jpeg?raw=true)
 
 ## 构建安装程序 (开发环境)
@@ -101,9 +101,9 @@ npm run build 或者 npm run pm2
 
 > 生产环境访问链接 ：
 >
-> 后台管理系统 ：http://localhost:3000/module/admin.html/#index
+> 首页 ： http://localhost:3000 (做一个 pc端 或者 移动端的重定向)
 > 登录注册页 ：http://localhost:3000/module/base.html
-> 首页 ： http://localhost:3000
+> 后台管理系统 ：http://localhost:3000/module/admin.html/#index
 
 ## Todos
 
@@ -123,7 +123,7 @@ npm run build 或者 npm run pm2
 终端
 
 * ~~pc~~
-* webApp
+* ~~webApp~~
 * Android
 * IOS
 
