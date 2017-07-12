@@ -61,6 +61,10 @@
   .category-box{
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.6);
+    position: fixed;
+    top: 80px;
+    z-index: 10;
+    width: 42.5em;
     .category-item{
       margin: 0 10px;
       &.router-link-active {

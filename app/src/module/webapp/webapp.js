@@ -12,10 +12,8 @@ import Vue from 'vue';
 import App from './App.vue';
 import { sync } from 'vuex-router-sync';
 import store from '../pc/vuex/';       //状态管理
-import createRouter from '../pc/router';     //路由
+import router from './router';     //路由
 import { timeToNow } from '@/common/filters';
-
-const router = createRouter('webapp');
 
 sync(store, router);
 

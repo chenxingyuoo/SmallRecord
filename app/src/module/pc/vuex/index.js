@@ -9,11 +9,13 @@ Vue.use(Vuex);
 //模块的状态管理
 import global from './global/';
 import article from './article/';
+import sidebar from './sidebar/';
 
 export default new Vuex.Store({
   modules: {
     global,
-    article
+    article,
+    sidebar
   },
   strict: process.env.NODE_ENV !== 'production',
   middlewares

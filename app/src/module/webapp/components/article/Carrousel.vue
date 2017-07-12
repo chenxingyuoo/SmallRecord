@@ -6,7 +6,7 @@
         <slot>暂无文章数据</slot>
       </div>
       <swiper :options="swiperOption" v-else-if="articleList && articleList.length !== 0">
-        <swiper-slide v-for="(article, index) in articleList" :key="index">
+        <swiper-slide v-for="(article, index) in articleList" :key="category + index">
           <div class="content">
             <div class="img" :style="{backgroundImage:'url('+ buildCover(article.cover) +')'}"></div>
             <router-link :to="`/articleDetails/${article._id}`" class="title">
@@ -80,7 +80,7 @@
   @import '../../../../assets/scss/variables';
 
   .carrousel {
-    height: 2.9rem;
+    height: 2.5rem;
     margin-bottom: 0.1rem;
     position: relative;
     overflow: hidden;

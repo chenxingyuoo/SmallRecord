@@ -3,15 +3,17 @@
 
     <category ref="category"></category>
 
-    <div class="article-box" ref="articleBox" :style={height:articleBoxHeight}>
-      <carrousel></carrousel>
+      <div class="article-box" ref="articleBox" :style={height:articleBoxHeight} >
 
-      <article-list ref="articleList"></article-list>
-    </div>
+        <carrousel></carrousel>
+
+        <article-list ref="articleList" :domScroll="domScroll"></article-list>
+      </div>
   </div>
 </template>
 
 <script>
+  import { mapActions, mapGetters } from 'vuex';
   import * as common from '@/common/common';
   import DomScroll from '@/common/plugins/domScroll';
 
@@ -21,7 +23,10 @@
   export default {
     data() {
       return {
-        articleBoxHeight : 0
+        domScroll : null,
+        routeChange : false,
+        category: this.$route.path.replace('/', ''),
+        articleBoxHeight: 0
       };
     },
     components: {
@@ -30,9 +35,11 @@
       ArticleList
     },
     computed: {
+      ...mapGetters({
+        article: 'getArticle'
+      })
     },
     beforeMount(){
-
     },
     mounted(){
       this.articleBoxHeight = common.winHeight - (this.$refs.category.$el.clientHeight * 2) + 'px';
@@ -41,12 +48,36 @@
     methods: {
       loadMore(){
         let self = this;
-        new DomScroll({
+        this.domScroll = new DomScroll({
           el : this.$refs.articleBox,
+          scroll : (scrollObj) => {
+            /*let scrollTop = scrollObj.el.scrollTop;
+            self.$store.commit('setScrollTop',{
+              category: self.category,
+              scrollTop : scrollTop
+            });*/
+          },
           scrollDown: (scrollObj) => {
             self.$refs.articleList.$emit('loadMore', scrollObj);
           }
         });
+      }
+    },
+    watch: {
+      '$route': function (route) {
+        let self = this;
+        this.category = route.path.replace('/', '');
+
+        /*setTimeout(() => {
+          let scrollTop = self.article[self.category].scrollTop;
+          if (scrollTop !== 0) {
+            scrollTop = scrollTop + 155;
+          }
+          //设置滚动位置
+          self.domScroll.el.scrollTop = scrollTop;
+        },20);*/
+
+
       }
     }
   };
@@ -56,7 +87,8 @@
   .webapp-article {
     padding-top: 0.8rem;
   }
-  .article-box{
+
+  .article-box {
     position: fixed;
     width: 100%;
     top: 1.6rem;

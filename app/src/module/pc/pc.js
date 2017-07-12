@@ -8,10 +8,8 @@ import Vue from 'vue';
 import { sync } from 'vuex-router-sync';
 import App from './App.vue';
 import store from './vuex/';       //状态管理
-import createRouter from './router';     //路由
+import router from './router';     //路由
 import { timeToNow } from '@/common/filters';
-
-const router = createRouter('pc');
 
 sync(store, router);
 

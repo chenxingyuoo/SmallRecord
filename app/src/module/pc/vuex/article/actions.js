@@ -22,15 +22,24 @@ export default {
       url: api.getNewsList,
       params: params
     }).then(res => {
+      let _data = res.data;
+      if (_data.list.length !== 0) {
 
-      if (res.data && res.data.list.length !== 0) {
-        res.data.category = params.category;
-        commit('fetchArticleListSucc', res.data);
+        _data.category = params.category;
+        commit('fetchArticleListSucc', _data);
 
         //页码+1
         commit('pagePlus', params.category);
+
+        if (params.page === _data.totalPage) {
+          commit('noMore', params.category);
+        }
+
+      } else {
+        //没有更多数据
+        commit('noMore', params.category);
       }
-      return res.data;
+      return _data;
     });
   },
   //获取一篇文章
@@ -46,9 +55,9 @@ export default {
   //删除一篇文章
   delOneArticle({commit}, params = {}){
     return post({
-      url : api.delOneNews,
-      data : {
-        id : params.id
+      url: api.delOneNews,
+      data: {
+        id: params.id
       }
     }).then(res => {
       commit('delOneArticleSucc', params.index);

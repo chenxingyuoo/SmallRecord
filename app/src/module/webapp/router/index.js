@@ -9,8 +9,8 @@ import VueRouter from 'vue-router';     //路由
 
 Vue.use(VueRouter);
 
-import articleRouter from '@pc/router/article';
-import musicRouter from '@pc/router/music';
+import articleRouter from './article';
+import musicRouter from './music';
 
 let routes = [
   ...articleRouter,

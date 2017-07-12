@@ -57,6 +57,7 @@
       position: relative;
       overflow: hidden;
       transition : width 0.35s;
+      padding-top: 55px;
     }
   }
 

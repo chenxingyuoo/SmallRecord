@@ -1,6 +1,6 @@
 <template>
   <header class="header flex-start-center">
-    <div class="left flex-center">
+    <div class="left flex-center" @click.stop.prevent="toggleSidebar">
       <i class="ic-caidan iconfont"></i>
     </div>
     <div class="flex1-center">
@@ -13,19 +13,29 @@
 </template>
 
 <script>
+
   export default {
     data() {
       return {};
     },
     components: {},
-    computed: {},
+    computed: {
+      isSidebarOpen() {
+        return this.$store.state.sidebar.isSidebarOpen;
+      }
+    },
     beforeMount(){
 
     },
     mounted(){
 
     },
-    methods: {}
+    methods: {
+      toggleSidebar(){
+        this.$store.commit('setSidebarVisible', !this.isSidebarOpen);
+      }
+
+    }
   };
 </script>
 

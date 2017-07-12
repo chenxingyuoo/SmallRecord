@@ -1,0 +1,148 @@
+<template>
+  <div id="sidebar-main" :class="{'open' : isSidebarOpen}">
+
+
+    <div class="sidebar-user">
+      <div class="avatar">
+        <img :src="avatar" alt="蜗牛先生">
+      </div>
+      <div class="profile">
+        <h3 class="name">蜗牛先生</h3>
+        <!--<p class="email">Talk is cheap. Show me the code</p>-->
+      </div>
+    </div>
+
+    <div class="sidebar-nav">
+      <nav class="nav-list" @click="closeSidebar">
+
+        <router-link to="/all" class="item" :class="{'router-link-active' : isArticleRouter}" exact>
+          <i class="iconfont icon-home"></i>
+          <span>Home</span>
+        </router-link>
+
+        <router-link to="/music" class="item">
+          <i class="iconfont icon-netease-music"></i>
+          <span>Music</span>
+        </router-link>
+      </nav>
+    </div>
+  </div>
+</template>
+
+<script>
+  import avatarImg from '@/assets/img/avatar.jpeg';
+  export default {
+    props : ['isSidebarOpen'],
+    data() {
+      return {
+        avatar : avatarImg
+      };
+    },
+    components: {},
+    computed: {
+      isArticleRouter () {
+        let routePath = this.$route.path.replace('/','');
+        let keys = Object.keys(this.$store.state.article.article);
+        let keyStr = keys.join(' ');
+        let reg = new RegExp(routePath,'g');
+
+        return reg.test(keyStr);
+      }
+    },
+    beforeMount(){
+
+    },
+    mounted(){
+
+    },
+    methods: {
+      closeSidebar(){
+        if (this.isSidebarOpen) {
+          this.$store.commit('setSidebarVisible', false);
+        }
+      }
+    }
+  };
+</script>
+
+<style lang="scss" rel="stylesheet/scss">
+  @import '../../../../assets/scss/variables';
+  @import '../../../../assets/scss/mixin';
+  #sidebar-main{
+    width: 3.8rem;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    background-color: #34393d;
+    transform: translateX(-100%);
+    transition: all .3s ease-out;
+  }
+  #sidebar-main.open{
+    transform: translateX(0);
+  }
+
+  .sidebar-user {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 0.3rem;
+    border-bottom: 1px solid darken($mobile-aside-bg, 5%);
+
+    .avatar {
+      width: 1.8rem;
+      height: 1.7rem;
+      margin-bottom: 0.2rem;
+      img {
+        height: 100%;
+        width: 100%;
+        border: 2px solid $module-bg;
+      }
+    }
+
+    .profile {
+      color: $body-bg;
+      width: 100%;
+
+      > .name {
+        font-weight: bold;
+      }
+
+      > .email {
+        color: $primary;
+        margin: 0;
+        @include text-overflow();
+      }
+    }
+  }
+
+  .sidebar-nav {
+    width: 100%;
+    .item {
+      border: none;
+      display: block;
+      height: 0.7rem;
+      line-height: 0.7rem;
+      padding: 0 1em;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: 700;
+      border-radius: 1px;
+      color: #777;
+      /* font-family: CenturyGothic; */
+      margin-bottom: .2rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &.router-link-active {
+        font-weight: bold;
+        color: $primary;
+        background-color: #eee;
+
+      }
+    }
+  }
+</style>

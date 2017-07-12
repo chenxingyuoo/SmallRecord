@@ -16,7 +16,7 @@ export default {
     }
 
     //添加数据
-    for (let key in state.article[category]){
+    for (let key in state.article[category].data){
       if (key !== 'list') {
         state.article[category].data[key] = data[key];
       } else {
@@ -28,6 +28,18 @@ export default {
   //获取文章列表初始化
   fetchArticleListInit(state, category){
     state.article[category].currPage = 1;
+  },
+
+  //没有更多数据
+  noMore(state, category){
+    state.article[category].isLoadMore = false;
+    if (state.article[category].currPage > 1) {
+      state.article[category].isNotDate = true;
+    }
+  },
+
+  setScrollTop(state,params){
+    state.article[params.category].scrollTop = params.scrollTop;
   },
 
   //页面 +1

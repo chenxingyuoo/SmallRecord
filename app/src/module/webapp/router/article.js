@@ -7,7 +7,7 @@
 //异步加载路由组件 ， 创建页面
 const createHomeView = (name) => {
   return (resolve) => {
-      return require(['@pc/views/article/' + name + '.vue'], resolve);
+      return require(['@webapp/views/article/' + name + '.vue'], resolve);
   };
 };
 
@@ -63,7 +63,7 @@ const categoryArticleRouters = [
 ];
 
 export default  [
-...categoryArticleRouters,
+  ...categoryArticleRouters,
   {
     path: '/articleDetails/:id',
     component: createHomeView('ArticleDetails'),

@@ -7,7 +7,7 @@
           <slot>暂无文章数据</slot>
         </div>
         <transition-group name="fade" tag="div" v-else>
-          <list-item v-for="(item, index) in currCategoryArticleList" :item="item" :key="item._id"></list-item>
+          <list-item v-for="(item, index) in currCategoryArticleList" :item="item" :key="category + item._id"></list-item>
         </transition-group>
       </transition>
     </div>
@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <div class="flex-center more-tips-box" v-if="isNotDate === true">
+    <div class="flex-center" v-if="isNotDate === true" style="padding-bottom: 0.2rem;">
       <span class="more-tips">没有更多数据</span>
     </div>
 
@@ -38,20 +38,21 @@
       return {
         categoryName: this.$route.name,
         categoryPath: null,
-        isLoadMore: true,
-        isNotDate: false,
         fetching: false,
-        category: null
+        scrollObj : null
       };
     },
     components: {
       ListItem
     },
-    props: {},
+    props: [],
     computed: {
       ...mapGetters({
         article: 'getArticle'
       }),
+      category(){
+        return this.$route.path.replace('/', '');
+      },
       //当前分类文章列表
       currCategoryArticleList() {
         let articleData = this.article[this.category].data;
@@ -64,14 +65,20 @@
       canLoadMore() {
         const {currentPage, totalPage} = this.article[this.category].data;
         return currentPage ? currentPage < totalPage : false;
+      },
+
+      isLoadMore(){
+        return this.article[this.category].isLoadMore;
+      },
+      isNotDate(){
+        return this.article[this.category].isNotDate;
       }
     },
     beforeMount(){
-
       //获取文章数据
       this.getArticleData();
-    },
 
+    },
     mounted(){
       this.$on('loadMore', this.loadMore);
     },
@@ -81,42 +88,51 @@
       ]),
       //获取文章数据
       getArticleData(){
-        this.category = this.$route.path.replace('/', '');
+
+//        this.category = this.$route.path.replace('/', '');
+
+        if (this.isLoadMore === false) {
+          return;
+        }
 
         let params = {
           category: this.category,
           categoryName: this.categoryName,
-          isLoadMore: this.isLoadMore,
           page: this.article[this.category].currPage,
           pageSize: this.$store.state.global.pageSize
         };
         return this.fetchArticleList(params);
       },
+
       //加载更多
       loadMore(scrollObj){
+        if (this.isLoadMore === false) {
+          scrollObj.lock = true;
+          return;
+        }
+
         this.fetching = true;
 
-        this.getArticleData()
-          .then(res => {
-            if (res.list.length === 0) {
-              scrollObj.isRemoveEvent = true;
-            }
-            scrollObj.lock = true;
+        this.getArticleData().then(res => {
             this.fetching = false;
-          })
-          .catch(err => {
+            scrollObj.lock = true;
+            if (res.list.length === 0) {
+              this.isNotDate = true;
+            }
+          }).catch(err => {
             scrollObj.lock = true;
             this.fetching = false;
           });
-
       }
     },
     watch: {
       $route: function (route) {
+
         this.categoryName = route.name;
 
-        //获取文章列表初始化
-        this.$store.commit('fetchArticleListInit', this.category);
+        if (this.article[this.category].currPage > 1) {
+          return;
+        }
 
         //重新获取文章数据
         this.getArticleData();
@@ -129,7 +145,6 @@
   @import '../../../../assets/scss/variables';
 
   .articles {
-
     > .article-list-header {
       margin-bottom: 1em;
       position: relative;
@@ -162,8 +177,13 @@
   }
 
   .more-tips-box {
-    padding-bottom: 0.2rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.2rem 0;
     color: #aaa;
+    background-color: #fff;
   }
 
   .three-bounce {

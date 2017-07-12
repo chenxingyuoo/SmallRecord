@@ -19,6 +19,7 @@ export default class DomScroll {
     this.scroll = opts.scroll || alwaysTrue;
     this.scrollTopCallback = opts.scrollTop || alwaysTrue;
     this.scrollDownCallback = opts.scrollDown || alwaysTrue;
+    this.y = 0;
     this.init();
   }
 
@@ -27,31 +28,37 @@ export default class DomScroll {
   }
 
   bindEvent() {
+    let self = this;
     //滚动处理函数
     const scrollFn = (event) => {
+
+
+
       window.requestAnimFrame(() => {
-        let scrollTop = this.getScrollTop();
-        let clientHeight = this.getClientHeight();
-        let scrollHeight = this.getScrollHeight();
+        let scrollTop = self.getScrollTop();
+        let clientHeight = self.getClientHeight();
+        let scrollHeight = self.getScrollHeight();
+
+        self.y = scrollTop;
 
         //执行scroll函数
-        this.scroll();
+        self.scroll(self);
 
         //滚动到顶部
-        if (scrollTop === 0 && this.lock === true) {
-          this.lock = false;
-          this.complete(this.scrollTopCallback);
+        if (scrollTop === 0 && self.lock === true) {
+          self.lock = false;
+          this.complete(self.scrollTopCallback);
         }
 
         //滚动到底部
-        if (scrollTop + clientHeight  >= scrollHeight && this.lock === true) {
-          this.lock = false;
-          this.complete(this.scrollDownCallback);
+        if (scrollTop + clientHeight  >= scrollHeight && self.lock === true) {
+          self.lock = false;
+          self.complete(self.scrollDownCallback);
         }
 
         //判断是否移除事件
-        if (this.isRemoveEvent === true) {
-          this.el.removeEventListener('scroll', scrollFn);
+        if (self.isRemoveEvent === true) {
+          self.el.removeEventListener('scroll', scrollFn);
         }
 
       });
