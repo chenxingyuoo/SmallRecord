@@ -141,6 +141,7 @@
             editForm.desc = res.desc;
             editForm.editValue = res.editValue;
             editForm.cover = res.cover;
+            this.selectCategory = res.category;
           });
       },
       createdArticle(e) {

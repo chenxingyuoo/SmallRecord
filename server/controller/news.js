@@ -126,15 +126,21 @@ exports.getOneNews = async (ctx, next) => {
       return
     }
 
-    let news = await News.findOne({_id: id})
+    let news = await News.findOne({_id: id});
 
     news.readingNum = news.readingNum + 1;
 
-    let data = await news.save();
+    //保存数据库
+    news.save();
+
+    let newsData = news['_doc'];
+
+    newsData.category = newsData.category.replace('全部,','');
+    newsData.category = newsData.category.split(',');
 
     ctx.response.body = {
       code: 1,
-      data: data,
+      data: newsData,
       message: '获取文章成功成功'
     }
 
