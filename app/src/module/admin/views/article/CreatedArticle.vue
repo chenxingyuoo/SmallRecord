@@ -18,7 +18,7 @@
       </el-form-item>
 
       <el-form-item label="分类">
-        <el-checkbox-group v-model="editForm.category" @change="checkboxChange">
+        <el-checkbox-group v-model="selectCategory" @change="checkboxChange">
           <el-checkbox v-for="(item, index) in category" :label="item" :key="index"></el-checkbox>
         </el-checkbox-group>
       </el-form-item>
@@ -71,7 +71,7 @@
           desc: '',
           editValue: '',
           content: '',
-          category: [],
+          category : [],
           file: null,
           cover: defaultCover
         },
@@ -144,13 +144,13 @@
           });
       },
       createdArticle(e) {
-
+          let self = this;
         this.$refs.form.validate((valid) => {
           if (!valid) {
             return;
           }
 
-          this.editForm.category = this.editForm.category.join(',');
+          this.editForm.category = self.selectCategory.join(',');
           this.editForm.content = this.$refs.mavonEditor['d_render'];
 
           this.saveArticle(this.editForm).then(res => {
@@ -214,5 +214,10 @@
     -moz-transition: -moz-transform 300ms ease;
     -o-transition: -o-transform 300ms ease;
     font-size: 12px;
+  }
+
+  .content-input-wrapper,
+  .content-input{
+    height: 100%;
   }
 </style>
