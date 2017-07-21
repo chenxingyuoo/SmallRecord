@@ -24,21 +24,17 @@ export default {
     }).then(res => {
       let _data = res.data;
       if (_data.list.length !== 0) {
-
-        _data.category = params.category;
+        //获取文章列表成功
         commit('fetchArticleListSucc', _data);
-
         //页码+1
-        commit('pagePlus', params.category);
-
-        if (params.page === _data.totalPage) {
-          commit('noMore', params.category);
-        }
-
-      } else {
-        //没有更多数据
-        commit('noMore', params.category);
+        commit('pagePlus');
       }
+
+      //没有更多数据
+      if (_data.list.length === 0 || params.page === _data.totalPage) {
+        commit('noMore');
+      }
+
       return _data;
     });
   },

@@ -1,10 +1,9 @@
 <template>
-  <div id="sidebar-main" :class="{'open' : isSidebarOpen}">
-
+  <div class="sidebar-main" :class="{'open' : isSidebarOpen}">
 
     <div class="sidebar-user">
       <div class="avatar">
-        <img :src="avatar" alt="蜗牛先生">
+        <img class="avatar-img" :src="avatar" alt="蜗牛先生">
       </div>
       <div class="profile">
         <h3 class="name">蜗牛先生</h3>
@@ -15,17 +14,18 @@
     <div class="sidebar-nav">
       <nav class="nav-list" @click="closeSidebar">
 
-        <router-link to="/all" class="item" :class="{'router-link-active' : isArticleRouter}" exact>
+        <router-link to="/all" class="nav-item" :class="{'router-link-active' : isArticleRouter}" exact>
           <i class="iconfont icon-home"></i>
           <span>Home</span>
         </router-link>
 
-        <router-link to="/music" class="item">
+        <router-link to="/music" class="nav-item">
           <i class="iconfont icon-netease-music"></i>
           <span>Music</span>
         </router-link>
       </nav>
     </div>
+
   </div>
 </template>
 
@@ -65,21 +65,20 @@
   };
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
-  @import '../../../../assets/scss/variables';
-  @import '../../../../assets/scss/mixin';
-  #sidebar-main{
+<style scoped>
+  .sidebar-main{
     width: 3.8rem;
     height: 100%;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 9999;
-    background-color: #34393d;
+    background-color: rgba(52,57,61,0.9);
     transform: translateX(-100%);
     transition: all .3s ease-out;
   }
-  #sidebar-main.open{
+
+  .open{
     transform: translateX(0);
   }
 
@@ -89,60 +88,64 @@
     align-items: flex-start;
     flex-direction: column;
     padding: 0.3rem;
-    border-bottom: 1px solid darken($mobile-aside-bg, 5%);
+    border-bottom: 1px solid #34393d;
+  }
 
-    .avatar {
-      width: 1.8rem;
-      height: 1.7rem;
-      margin-bottom: 0.2rem;
-      img {
-        height: 100%;
-        width: 100%;
-        border: 2px solid $module-bg;
-      }
-    }
+  .avatar {
+    width: 1.8rem;
+    height: 1.7rem;
+    margin-bottom: 0.2rem;
+  }
 
-    .profile {
-      color: $body-bg;
-      width: 100%;
+  .avatar-img {
+    height: 100%;
+    width: 100%;
+    border: 2px solid rgba(255,255,255,0.6);
+  }
 
-      > .name {
-        font-weight: bold;
-      }
+  .profile {
+    color: #eee;
+    width: 100%;
+  }
 
-      > .email {
-        color: $primary;
-        margin: 0;
-        @include text-overflow();
-      }
-    }
+  .name {
+    font-weight: bold;
+  }
+
+  .email {
+    color: #20a0ff;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .sidebar-nav {
     width: 100%;
-    .item {
-      border: none;
-      display: block;
-      height: 0.7rem;
-      line-height: 0.7rem;
-      padding: 0 1em;
-      text-decoration: none;
-      text-transform: uppercase;
-      font-weight: 700;
-      border-radius: 1px;
-      color: #777;
-      /* font-family: CenturyGothic; */
-      margin-bottom: .2rem;
-      &:last-child {
-        margin-bottom: 0;
-      }
-
-      &.router-link-active {
-        font-weight: bold;
-        color: $primary;
-        background-color: #eee;
-
-      }
-    }
   }
+
+  .nav-item {
+    border: none;
+    display: block;
+    height: 0.7rem;
+    line-height: 0.7rem;
+    padding: 0 0.3rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.25rem;
+    font-weight: 700;
+    border-radius: 1px;
+    color: #777;
+  }
+
+  .nav-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .router-link-active {
+    font-weight: bold;
+    color: #20a0ff;
+    background-color: #eee;
+  }
+
 </style>

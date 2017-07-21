@@ -13,12 +13,14 @@ import App from './App.vue';
 import { sync } from 'vuex-router-sync';
 import store from '../pc/vuex/';       //状态管理
 import router from './router';     //路由
-import { timeToNow } from '@/common/filters';
+import * as filters from '@/common/filters';
 
 sync(store, router);
 
 //自定义过滤器
-Vue.filter('timeToNow', timeToNow);
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key]);
+});
 
 //plugins
 import '@/common/plugins/swiper';

@@ -5,9 +5,14 @@
 'use strict';
 
 export default {
+  //设置当前选中的分类
+  setActiveCategory(state, category = ''){
+    state.activeCategory = category;
+  },
+
   //获取文章列表成功
   fetchArticleListSucc(state, data = {}){
-    let category = data.category;
+    let category = state.activeCategory;
     let currCategoryObj = state.article[category];
     let currCategoryData = currCategoryObj.data;
     if (!currCategoryData.list) {
@@ -26,25 +31,27 @@ export default {
   },
 
   //获取文章列表初始化
-  fetchArticleListInit(state, category){
-    state.article[category].currPage = 1;
+  fetchArticleListInit(state){
+    state.article[state.activeCategory].currPage = 1;
   },
 
   //没有更多数据
-  noMore(state, category){
+  noMore(state){
+    let category = state.activeCategory;
     state.article[category].isLoadMore = false;
     if (state.article[category].currPage > 1) {
       state.article[category].isNotDate = true;
     }
   },
 
-  setScrollTop(state,params){
-    state.article[params.category].scrollTop = params.scrollTop;
+  //保存滚动距离
+  setScrollTop(state, scrollTop){
+    state.article[state.activeCategory].scrollTop = scrollTop;
   },
 
   //页面 +1
-  pagePlus(state, category){
-    state.article[category].currPage++;
+  pagePlus(state){
+    state.article[state.activeCategory].currPage++;
   },
   //获取一篇文章成功
   fetchOneArticleSucc(state, data = {}){

@@ -3,18 +3,18 @@
     <!-- 列表 -->
     <div class="article-list">
       <transition name="module" mode="out-in">
-        <div class="empty-box" v-if="!fetching && currCategoryArticleList && currCategoryArticleList.length === 0">
+        <div class="empty-box" v-if="!fetching && articleList && articleList.length === 0">
           <slot>暂无文章数据</slot>
         </div>
         <transition-group name="fade" tag="div" v-else>
-          <list-item v-for="(item, index) in currCategoryArticleList" :item="item" :key="item._id"></list-item>
+          <list-item v-for="(item, index) in articleList" :item="item" :key="item._id"></list-item>
         </transition-group>
       </transition>
     </div>
 
     <!-- 加载更多 -->
     <div class="article-load">
-      <button class="btn-loadmore" :disabled="fetching || !canLoadMore" @click="loadMore">
+      <button class="btn-loadmore" :disabled="fetching || !canLoadMore" @click="getArticleData">
         <span v-if="!fetching && canLoadMore">加载更多</span>
         <span v-else-if="fetching && canLoadMore">加载中</span>
         <span v-else-if="!canLoadMore">我是有底线的</span>
@@ -25,32 +25,30 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex';
+  import {mapActions, mapGetters} from 'vuex';
   import ListItem from './Item.vue';
 
   export default {
     name: 'article-list',
+    props: ['category'],
     data() {
       return {
         categoryName: this.$route.name,
         categoryPath: null,
         fetching: false,
-        routerChange : false
+        routeChange: false,
+        bodyEl: document.body
       };
     },
     components: {
       ListItem
     },
-    props: {},
     computed: {
       ...mapGetters({
         article: 'getArticle'
       }),
-      category(){
-        return this.$route.path.replace('/', '');
-      },
       //当前分类文章列表
-      currCategoryArticleList() {
+      articleList() {
         let articleData = this.article[this.category].data;
         let articleList = articleData.list;
         if (articleList && articleList.length !== 0) {
@@ -65,38 +63,33 @@
       isLoadMore(){
         return this.article[this.category].isLoadMore;
       }
-
     },
     beforeMount(){
-      let self = this;
-      let body = document.body;
-      //监听滚动位置 ， 保存滚动位置
-      /*body.onscroll = (event) => {
-        window.requestAnimFrame(() => {
-          if (this.routerChange === true) {
-            this.routerChange = false;
-            return;
-          }
-          let scrollTop = body.scrollTop;
-          self.$store.commit('setScrollTop',{
-            category: self.category,
-            scrollTop : scrollTop
-          });
-        });
-      };*/
+      //设置当前选中的分类
+      this.$store.commit('setActiveCategory', this.category);
 
-      //获取文章数据
-      this.getArticleData();
+      //没有文章列表才请求
+      if (this.articleList.length === 0) {
+        //获取文章数据
+        this.getArticleData();
+      }
     },
-
     mounted(){
+      //滚动到记录的位置
+      this.bodyEl.scrollTop = this.article[this.category].scrollTop;
 
+      setTimeout(() => {
+        //滚动初始化
+        this.scrollInit();
+      },100);
+    },
+    beforeDestroy(){
+      this.bodyEl.onscroll = null;
     },
     methods: {
       ...mapActions([
         'fetchArticleList'
       ]),
-
       //获取文章数据
       getArticleData(){
         if (this.isLoadMore === false) {
@@ -104,48 +97,26 @@
         }
 
         let params = {
-          category : this.category,
           categoryName: this.categoryName,
           page: this.article[this.category].currPage,
           pageSize: this.$store.state.global.pageSize
         };
-        return this.fetchArticleList(params);
-      },
-      //加载更多
-      loadMore(){
+
         this.fetching = true;
 
-        this.getArticleData()
-          .then(res => {
-            this.fetching = false;
-          })
-          .catch(err => {
-            this.fetching = false;
-          });
-      }
-    },
-    watch: {
-      $route: function (route) {
-        this.categoryName = route.name;
-
-        this.routerChange = true;
-
-        /*let self = this;
-        setTimeout(() => {
-          let scrollTop = self.article[self.category].scrollTop;
-          if (scrollTop !== 0) {
-            scrollTop = scrollTop + 150;
-          }
-          //设置滚动位置
-          document.body.scrollTop = scrollTop;
-        },300);*/
-
-        if (this.article[this.category].currPage > 1) {
-          return;
-        }
-
-        //重新获取文章数据
-        this.getArticleData();
+        this.fetchArticleList(params).then(res => {
+          this.fetching = false;
+        }).catch(err => {
+          this.fetching = false;
+        });
+      },
+      //滚动初始化，监听滚动位置 ， 保存滚动位置
+      scrollInit(){
+        let self = this;
+        this.bodyEl.onscroll = (event) => {
+          let scrollTop = self.bodyEl.scrollTop;
+          self.$store.commit('setScrollTop', scrollTop);
+        };
       }
     }
   };

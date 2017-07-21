@@ -11,11 +11,13 @@
     <div class="main-content pb-30">
 
       <div class="category-box mb-15">
-        <router-link v-for="(item, key) in categoryArticleRouters" class="category-item" :to="{path : key }" :key="key">{{ item.name }}</router-link>
+        <router-link v-for="(item, key) in categoryArticleRouters" class="category-item" :to="{path : key }" :key="key">
+          {{ item.name }}
+        </router-link>
       </div>
 
       <carrousel></carrousel>
-      <article-list></article-list>
+      <article-list :category="category"></article-list>
     </div>
 
   </div>
@@ -29,9 +31,9 @@
   import ArticleList from '@pc/components/article/List.vue';
 
   export default {
+    props: ['category'],
     data() {
-      return {
-      };
+      return {};
     },
     components: {
       navView: Nav,
@@ -55,17 +57,19 @@
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   @import '../../../../assets/scss/variables';
-  .article-wrap{
+
+  .article-wrap {
     position: relative;
   }
-  .category-box{
+
+  .category-box {
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.6);
     position: fixed;
     top: 80px;
     z-index: 10;
     width: 42.5em;
-    .category-item{
+    .category-item {
       margin: 0 10px;
       &.router-link-active {
         font-weight: bold;

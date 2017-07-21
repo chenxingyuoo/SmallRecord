@@ -1,5 +1,5 @@
 <template>
-    <article id="article">
+    <article id="article-detail">
       <div class="pad-20">
         <div class="article-header">
           <h2 class="article-title">{{ oneArticle.title }}</h2>
@@ -11,12 +11,11 @@
           <div v-html="oneArticle.content"></div>
         </div>
       </div>
-
     </article>
 </template>
 
 <script>
-
+  import * as common from '@/common/common';
   export default {
     data() {
       return {};
@@ -47,21 +46,22 @@
   };
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
-  #article{
+<style scoped>
+  #article-detail{
     padding-top: 0.8rem;
     background-color: #fff;
     opacity: 0.8;
     border-radius: 2px;
-    .article-header{
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .article-title{
-      font-size: 30px;
-      margin-bottom: 10px;
-    }
-
+    height: 100%;
+    overflow-y: auto;
+  }
+  .article-header{
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .article-title{
+    font-size: 30px;
+    margin-bottom: 10px;
   }
 
 </style>

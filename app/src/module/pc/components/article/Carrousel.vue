@@ -2,10 +2,7 @@
   <div class="carrousel">
 
     <transition name="module" mode="out-in">
-      <div class="empty-box" v-if="articleList && articleList.length === 0">
-        <slot>暂无文章数据</slot>
-      </div>
-      <swiper :options="swiperOption" v-else-if="articleList && articleList.length !== 0">
+      <swiper :options="swiperOption" v-if="articleList && articleList.length !== 0">
         <swiper-slide v-for="(article, index) in articleList" :key="index">
           <div class="content">
             <div class="img" :style="{backgroundImage:'url('+ buildCover(article.cover) +')'}"></div>

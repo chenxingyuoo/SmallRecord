@@ -166,8 +166,7 @@
         this.editForm.editValue = value;
         this.$refs.form.validateField('editValue');
       },
-      checkboxChange(a,b){
-        console.log('mylog', this);
+      checkboxChange(){
       }
     },
     watch: {

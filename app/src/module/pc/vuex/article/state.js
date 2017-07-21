@@ -4,7 +4,8 @@
 
 'use strict';
 export default {
-  article: {
+  activeCategory : null,  //选中的分类
+  article: {              //文章
     all : {
       name : '全部',
       currPage : 1,
@@ -62,5 +63,5 @@ export default {
       data : {}
     }
   },
-  oneArticle : {}
+  oneArticle : {}     //一篇文章
 };

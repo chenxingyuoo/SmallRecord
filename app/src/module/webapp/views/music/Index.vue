@@ -27,6 +27,6 @@
   };
 </script>
 
-<style lang="" rel="stylesheet/">
+<style>
 
 </style>

@@ -11,7 +11,7 @@
       </div>
       <div class="item-body">
         <h4 class="item-title">
-          <router-link :to="{ path : `/articleDetails/${item._id}` }" :title="item.title">{{ item.title }}</router-link>
+          <router-link :to="{ path : `/articleDetails/${item._id}` }" :title="item.title" class="title-link">{{ item.title }}</router-link >
         </h4>
         <p class="item-description" style="-webkit-box-orient: vertical;">{{ item.desc }}</p>
         <div class="item-meta">
@@ -144,7 +144,6 @@
 
             &:hover {
               display: inline-block;
-              text-decoration: underline;
               margin-left: .5em;
             }
           }

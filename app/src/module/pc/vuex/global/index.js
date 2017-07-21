@@ -6,9 +6,9 @@ import * as mutations from './mutations';
 import * as getters from './getters';
 import * as actions from './actions';
 
-module.exports = {
-    state,
-    mutations,
-    getters,
-    actions
+export default {
+  state,
+  mutations,
+  getters,
+  actions
 };

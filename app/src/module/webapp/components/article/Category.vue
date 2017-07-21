@@ -1,7 +1,9 @@
 <template>
   <div class="category-box">
     <div class="category-scroll flex-start-center">
-      <router-link v-for="(item, key) in categoryArticleRouters" class="category-item" :to="{path : key }" :key="key">{{ item.name }}</router-link>
+      <router-link v-for="(item, key) in categoryArticleRouters" class="category-item" :to="{path : key }" :key="key">
+        {{ item.name }}
+      </router-link>
     </div>
     <div class="shadow"></div>
   </div>
@@ -28,9 +30,8 @@
   };
 </script>
 
-<style lang="scss" rel="stylesheet/scss" scoped>
-  @import '../../../../assets/scss/variables';
-  .category-box{
+<style scoped>
+  .category-box {
     width: 100%;
     height: 0.8rem;
     overflow: hidden;
@@ -40,21 +41,25 @@
     left: 0;
     background: #f4f5f6;
   }
-  .category-scroll{
+
+  .category-scroll {
     overflow-x: scroll;
     white-space: nowrap;
     height: 100%;
   }
-  .category-item{
+
+  .category-item {
     padding: 0 0.14rem;
     font-size: 0.32rem;
     margin-left: 0.188rem;
     display: inline-block;
-    &.router-link-active {
-      color: $primary;
-    }
   }
-  .shadow{
+
+  .router-link-active {
+    color: #20a0ff;
+  }
+
+  .shadow {
     height: 0.5rem;
     width: 0.2rem;
     /* background-image: linear-gradient(to top, rgba(0,0,0,.2), rgba(0,0,0,.4), rgba(0,0,0,.2)); */

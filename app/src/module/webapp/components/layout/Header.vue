@@ -39,7 +39,7 @@
   };
 </script>
 
-<style lang="scss" rel="stylesheet/scss">
+<style scoped>
   .header{
     height: 0.8rem;
     background-color: #20a0ff;
