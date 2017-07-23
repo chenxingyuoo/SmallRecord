@@ -1,8 +1,8 @@
 <template>
-  <div class="carrousel">
+  <div class="carrousel" v-if="articleList && articleList.length !== 0">
 
     <transition name="module" mode="out-in">
-      <swiper :options="swiperOption" v-if="articleList && articleList.length !== 0">
+      <swiper :options="swiperOption" >
         <swiper-slide v-for="(article, index) in articleList" :key="index">
           <div class="content">
             <div class="img" :style="{backgroundImage:'url('+ buildCover(article.cover) +')'}"></div>

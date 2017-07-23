@@ -1,31 +1,38 @@
 <template>
-  <div class="articles">
-    <!-- 列表 -->
-    <div class="article-list">
-      <transition name="module" mode="out-in">
-        <div class="empty-box" v-if="!fetching && articleList && articleList.length === 0">
-          <slot>暂无文章数据</slot>
-        </div>
-        <transition-group name="fade" tag="div" v-else>
-          <list-item v-for="(item, index) in articleList" :item="item" :key="item._id"></list-item>
-        </transition-group>
-      </transition>
-    </div>
+  <div class="articles-box" v-loading="fetching">
 
-    <!-- 加载更多 -->
-    <div class="article-load">
-      <button class="btn-loadmore" :disabled="fetching || !canLoadMore" @click="getArticleData">
-        <span v-if="!fetching && canLoadMore">加载更多</span>
-        <span v-else-if="fetching && canLoadMore">加载中</span>
-        <span v-else-if="!canLoadMore">我是有底线的</span>
-      </button>
+    <carrousel></carrousel>
+
+    <div class="articles">
+      <!-- 列表 -->
+      <div class="article-list">
+        <transition name="module" mode="out-in">
+          <div class="empty-box" v-if="!fetching && articleList && articleList.length === 0">
+            <slot>暂无文章数据</slot>
+          </div>
+          <transition-group name="fade" tag="div" v-else>
+            <list-item v-for="(item, index) in articleList" :item="item" :key="item._id"></list-item>
+          </transition-group>
+        </transition>
+      </div>
+
+      <!-- 加载更多 -->
+      <div class="article-load">
+        <button class="btn-loadmore" :disabled="fetching || !canLoadMore" @click="getArticleData">
+          <span v-if="!fetching && canLoadMore">加载更多</span>
+          <span v-else-if="fetching && canLoadMore">加载中</span>
+          <span v-else-if="!canLoadMore">我是有底线的</span>
+        </button>
+      </div>
     </div>
 
   </div>
+
 </template>
 
 <script>
   import {mapActions, mapGetters} from 'vuex';
+  import Carrousel from '@pc/components/article/Carrousel.vue';
   import ListItem from './Item.vue';
 
   export default {
@@ -37,10 +44,12 @@
         categoryPath: null,
         fetching: false,
         routeChange: false,
-        bodyEl: document.body
+        bodyEl: document.body,
+        loading : false
       };
     },
     components: {
+      Carrousel,
       ListItem
     },
     computed: {
@@ -65,8 +74,6 @@
       }
     },
     beforeMount(){
-      //设置当前选中的分类
-      this.$store.commit('setActiveCategory', this.category);
 
       //没有文章列表才请求
       if (this.articleList.length === 0) {
@@ -125,6 +132,9 @@
 <style lang="scss" scoped>
   @import '../../../../assets/scss/variables';
 
+  .articles-box{
+    position: relative;
+  }
   .articles {
 
     > .article-list-header {

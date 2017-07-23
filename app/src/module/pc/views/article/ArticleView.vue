@@ -16,7 +16,6 @@
         </router-link>
       </div>
 
-      <carrousel></carrousel>
       <article-list :category="category"></article-list>
     </div>
 
@@ -27,7 +26,7 @@
 <script>
 
   import Nav from '@pc/components/layout/Nav.vue';
-  import Carrousel from '@pc/components/article/Carrousel.vue';
+
   import ArticleList from '@pc/components/article/List.vue';
 
   export default {
@@ -37,7 +36,6 @@
     },
     components: {
       navView: Nav,
-      Carrousel,
       ArticleList
     },
     computed: {
@@ -46,7 +44,8 @@
       }
     },
     beforeMount(){
-
+      //设置当前选中的分类
+      this.$store.commit('setActiveCategory', this.category);
     },
     mounted(){
 

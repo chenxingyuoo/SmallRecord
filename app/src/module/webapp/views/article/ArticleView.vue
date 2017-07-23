@@ -4,8 +4,6 @@
 
     <div class="article-box" ref="articleBox" :style={height:articleBoxHeight}>
 
-      <carrousel></carrousel>
-
       <article-list ref="articleList" :domScroll="domScroll" :category="category"></article-list>
     </div>
   </div>
@@ -17,7 +15,7 @@
   import DomScroll from '@/common/plugins/domScroll';
 
   import Category from '@webapp/components/article/Category.vue';
-  import Carrousel from '@webapp/components/article/Carrousel.vue';
+
   import ArticleList from '@webapp/components/article/List.vue';
 
   export default {
@@ -31,7 +29,6 @@
     },
     components: {
       Category,
-      Carrousel,
       ArticleList
     },
     computed: {

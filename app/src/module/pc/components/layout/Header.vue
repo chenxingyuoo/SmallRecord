@@ -1,14 +1,12 @@
 <template>
   <header class="header">
-    <nav class="navbar">
-      <div class="navbar-container container">
-        <div class="navbar-header">
-          <router-link to="/all" class="navbar-logo">
-            SmallRecord
-          </router-link>
-        </div>
+    <div class="header-container container">
+      <div class="header-logo-box">
+        <router-link to="/all" class="header-logo">
+          SmallRecord
+        </router-link>
       </div>
-    </nav>
+    </div>
   </header>
 </template>
 
@@ -22,24 +20,23 @@
 <style lang="scss" scoped>
   @import '../../../../assets/scss/variables';
 
-  .navbar {
+  .header{
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
     height: 60px;
     line-height: 60px;
+    width: 100%;
     background-color: $module-bg;
     z-index: 10000;
-
-    .navbar-container {
-      height: 60px;
-      display: flex;
-      justify-content: space-between;
-    }
+  }
+  .header-container {
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
   }
 
-  .navbar-header {
+  .header-logo-box {
     height: 60px;
     display: flex;
     position: relative;
@@ -48,7 +45,7 @@
     width: 30em;
     justify-content: space-between;
 
-    .navbar-logo {
+    .header-logo {
       font-family: 'Comic Sans MS';
       font-size: 22px;
       color: #333;

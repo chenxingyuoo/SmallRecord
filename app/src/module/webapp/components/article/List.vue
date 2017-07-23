@@ -1,5 +1,8 @@
 <template>
-  <div class="articles">
+  <div class="articles" v-loading="fetching">
+
+    <carrousel></carrousel>
+
     <!-- 列表 -->
     <div class="article-list">
       <transition name="module" mode="out-in">
@@ -30,6 +33,7 @@
 <script>
   import {mapActions, mapGetters} from 'vuex';
   import ListItem from './Item.vue';
+  import Carrousel from './Carrousel.vue';
 
   export default {
     name: 'article-list',
@@ -43,6 +47,7 @@
       };
     },
     components: {
+      Carrousel,
       ListItem
     },
     computed: {
@@ -91,7 +96,16 @@
           pageSize: this.$store.state.global.pageSize
         };
 
-        return this.fetchArticleList(params);
+        this.fetching = true;
+        return this.fetchArticleList(params)
+          .then(res => {
+            this.fetching = false;
+            return res;
+          })
+          .catch(err => {
+            this.fetching = false;
+            return err;
+          });
       },
       //加载更多文章数据
       loadMore(scrollObj){
@@ -100,17 +114,13 @@
           return;
         }
 
-        this.fetching = true;
-
         this.getArticleData().then(res => {
-          this.fetching = false;
           scrollObj.lock = true;
           if (res.list.length === 0) {
             this.isNotDate = true;
           }
         }).catch(err => {
           scrollObj.lock = true;
-          this.fetching = false;
         });
       }
     }

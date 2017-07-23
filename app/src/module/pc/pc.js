@@ -22,6 +22,9 @@ import '@/common/plugins/particles';
 
 import '@/common/reqAnimFrame';
 
+//directive
+import '@/components/loading';
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -25,6 +25,9 @@ Object.keys(filters).forEach(key => {
 //plugins
 import '@/common/plugins/swiper';
 
+//directive
+import '@/components/loading';
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

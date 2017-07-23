@@ -1,6 +1,6 @@
 <template>
     <article id="article-detail">
-      <div class="pad-20">
+      <div class="pad-20" v-loading="loading">
         <div class="article-header">
           <h2 class="article-title">{{ oneArticle.title }}</h2>
           <div class="article-info">
@@ -18,7 +18,9 @@
   import * as common from '@/common/common';
   export default {
     data() {
-      return {};
+      return {
+        loading : false
+      };
     },
     components: {
 
@@ -40,7 +42,14 @@
         let params = {
           id : this.$route.params.id
         };
-        this.$store.dispatch('fetchOneArticle', params);
+        this.loading = true;
+        this.$store.dispatch('fetchOneArticle', params)
+          .then(res => {
+            this.loading = false;
+          })
+          .catch(err => {
+            this.loading = false;
+          });
       }
     }
   };
