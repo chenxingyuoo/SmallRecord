@@ -217,7 +217,6 @@
     font-size: 12px;
   }
 
-  .content-input-wrapper,
   .content-input{
     height: 100%;
   }

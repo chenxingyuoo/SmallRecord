@@ -75,7 +75,6 @@ app.use(async (ctx, next) => {
   }
 })
 
-
 // app.use(session({
 //   key: "SESSIONID",   //default "koa:sess"
 //   maxAge: 500000      //设置session超时时间
@@ -90,19 +89,8 @@ app.on('error', (err, ctx) => {
   console.error('server error', err)
 })
 
-//启动服务 ， 监听文件自动刷新
-// const bs = require('browser-sync').create()
 const port = 3000
 app.listen(port, (argument) => {
-  // body...
-  // bs.init({
-  //   open: false,
-  //   ui: false,
-  //   notify: false,
-  //   proxy: `localhost:${port}`,
-  //   files: ['../app'],
-  //   port: 8000
-  // })
   console.log(`http://localhost:${port}`)
 })
 
