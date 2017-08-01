@@ -2,7 +2,7 @@
   "name": "SmallRecord",
   "version": "1.0.0",
   "description": "vue2 搭建 SmallRecord 博客",
-  "author": "陈星宇 <chenxy@communet.io>",
+  "author": "陈星宇 <2731173104@qq.com>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
