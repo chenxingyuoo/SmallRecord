@@ -1,62 +1,86 @@
 <template>
-    <article id="article-detail">
-      <div class="pad-20" v-loading="loading">
-        <div class="article-header">
-          <h2 class="article-title">{{ oneArticle.title }}</h2>
-          <div class="article-info">
-            <span>{{oneArticle.updateAt}}</span>
-          </div>
-        </div>
-        <div class="article-content markdown-body code-github">
-          <div v-html="oneArticle.content"></div>
+  <article id="article-detail">
+    <div class="pad-20" v-loading="loading">
+      <div class="article-header">
+        <h2 class="article-title">{{ oneArticle.title }}</h2>
+        <div class="article-info">
+          <span>{{oneArticle.updateAt}}</span>
         </div>
       </div>
-    </article>
+      <div class="article-content markdown-body code-github">
+        <div v-html="oneArticle.content"></div>
+      </div>
+    </div>
+  </article>
 </template>
 
 <script>
   import * as common from '@/common/common';
+
   export default {
-    data() {
+    data () {
       return {
-        loading : false
+        loading: false
       };
     },
-    components: {
-
-    },
+    components: {},
     computed: {
-      oneArticle(){
+      oneArticle () {
         return this.$store.state.article.oneArticle;
       }
     },
-    beforeMount(){
+    beforeMount () {
       this.getOneArticleData();
+      this.checkPageBack();
     },
-    mounted(){
+    mounted () {
+    },
+    destroyed(){
+      window.onpopstate = null;
     },
     methods: {
-
       //获取一篇文章数据
-      getOneArticleData(){
+      getOneArticleData () {
         let params = {
-          id : this.$route.params.id
+          id: this.$route.params.id
         };
         this.loading = true;
-        this.$store.dispatch('fetchOneArticle', params)
-          .then(res => {
-            this.loading = false;
-          })
-          .catch(err => {
-            this.loading = false;
-          });
+        this.$store.dispatch('fetchOneArticle', params).then(res => {
+          this.loading = false;
+          document.title = this.oneArticle.title;
+        }).catch(err => {
+          this.loading = false;
+        });
+      },
+      checkPageBack(){
+        setTimeout(() => {
+          if (history.length < 3) {
+            let state = {
+              title: 'title',
+              url: '#/all'
+            };
+            window.history.pushState(state, 'title', null);
+
+            state = {
+              title: 'index',
+              url: ''
+            };
+            window.history.pushState(state, 'index', '');
+
+            window.onpopstate = () => {
+              if (window.history.state !== null && window.history.state.url !== '') {
+                location.hash = window.history.state.url;
+              }
+            };
+          }
+        }, 300);
       }
     }
   };
 </script>
 
 <style scoped>
-  #article-detail{
+  #article-detail {
     padding-top: 0.8rem;
     background-color: #fff;
     opacity: 0.8;
@@ -64,11 +88,13 @@
     height: 100%;
     overflow-y: auto;
   }
-  .article-header{
+
+  .article-header {
     text-align: center;
     margin-bottom: 40px;
   }
-  .article-title{
+
+  .article-title {
     font-size: 30px;
     margin-bottom: 10px;
   }

@@ -6,11 +6,10 @@
         <i class="iconfont icon-home"></i>
         <span>Home</span>
       </router-link>
-
-      <router-link to="/music" class="item">
-        <i class="iconfont icon-netease-music"></i>
-        <span>Music</span>
-      </router-link>
+      <!--<router-link to="/music" class="item">-->
+        <!--<i class="iconfont icon-netease-music"></i>-->
+        <!--<span>Music</span>-->
+      <!--</router-link>-->
 
     </nav>
   </div>
