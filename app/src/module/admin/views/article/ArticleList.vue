@@ -23,7 +23,7 @@
         width="170">
       </el-table-column>
       <el-table-column label="操作">
-        <template scope="scope">
+        <template slot-scope="scope">
           <router-link :to="{ name: 'articleDetails' , params : { id: scope.row._id } }">
             <el-button size="small">
                 查看
@@ -40,7 +40,9 @@
             <el-button
               size="small"
               type="danger"
-              @click="deleteArticle(scope.$index, scope.row)">删除</el-button>
+              @click="deleteArticle(scope.$index, scope.row)">
+              删除
+            </el-button>
           </template>
         </template>
       </el-table-column>

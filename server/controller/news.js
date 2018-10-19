@@ -106,7 +106,8 @@ exports.getNewsList = async (ctx, next) => {
         pageSize: pageSize,
         currentPage: page,
         totalPage: totalPage,
-        list: data
+        list: data,
+        totalCount : allData.length
       },
       message: '获取成功'
     }
