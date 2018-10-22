@@ -8,7 +8,14 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect(`mongodb://${settings.host}/${settings.db}`,{useMongoClient:true});
+const options = {
+  server: {
+    auto_reconnect: true,
+    poolSize: 10
+  }
+};
+
+mongoose.connect(`mongodb://${settings.host}/${settings.db}`,options);
 
 module.exports = {
   mongoose : mongoose
