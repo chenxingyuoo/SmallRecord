@@ -1,10 +1,10 @@
 import axios from 'axios';
 import * as qs from 'qs';
 
-let baseURL = process.env.NODE_ENV === 'development' ?
-  'http://localhost:3000' : 'http://smallrecord.3tstudio.cn';
-
-axios.defaults.baseURL = baseURL;
+// let baseURL = process.env.NODE_ENV === 'development' ?
+//   'http://localhost:3000' : 'http://smallrecord.3tstudio.cn';
+//
+// axios.defaults.baseURL = baseURL;
 
 const MIN_RES_CODE = 200;
 const MAX_RES_CODE = 300;

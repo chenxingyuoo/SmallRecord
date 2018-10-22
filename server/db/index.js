@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect(`mongodb://${settings.host}/${settings.db}`);
+mongoose.connect(`mongodb://${settings.host}/${settings.db}`,{useMongoClient:true});
 
 module.exports = {
   mongoose : mongoose

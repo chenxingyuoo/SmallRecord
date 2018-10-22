@@ -30,26 +30,26 @@ router.get('/module/webapp.html', viewControl.webappView)
  */
 
 //用户注册
-router.post('/userSignup', userControl.userSignup)
+router.post('/api/userSignup', userControl.userSignup)
 //用户登录
-router.post('/userSignin', userControl.userSignin)
+router.post('/api/userSignin', userControl.userSignin)
 //用户退出登录
-router.post('/userSignout', userControl.userSignout)
+router.post('/api/userSignout', userControl.userSignout)
 
 /**
  * 文章模块
  */
 
 //保存文章
-router.post('/saveNews', userControl.verifyLogin, userControl.verifyAuthority , newsControl.saveNews)
+router.post('/api/saveNews', userControl.verifyLogin, userControl.verifyAuthority , newsControl.saveNews)
 
 //获取文章列表
-router.get('/getNewsList', newsControl.getNewsList)
+router.get('/api/getNewsList', newsControl.getNewsList)
 
 //获取一篇文章
-router.get('/getOneNews', newsControl.getOneNews)
+router.get('/api/getOneNews', newsControl.getOneNews)
 
 //删除一篇文章
-router.post('/delOneNews', userControl.verifyLogin, userControl.verifyAuthority , newsControl.delOneNews)
+router.post('/api/delOneNews', userControl.verifyLogin, userControl.verifyAuthority , newsControl.delOneNews)
 
 module.exports = router

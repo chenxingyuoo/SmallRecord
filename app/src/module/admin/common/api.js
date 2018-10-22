@@ -3,7 +3,7 @@
  */
 
 'use strict';
-export default {
+let apis = {
   userSignin : 'userSignin',  //用户登录
   userSignout : 'userSignout', //用户退出登录
 
@@ -13,3 +13,10 @@ export default {
   getNewsList : 'getNewsList', //获取文章列表
   delOneNews : 'delOneNews' //删除一篇文章
 };
+
+for (let key in apis){
+  apis[key] = '/api/' + apis[key];
+}
+
+
+export default apis;

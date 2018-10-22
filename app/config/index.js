@@ -33,11 +33,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/module/public' : {
-        target: 'http://127.0.0.1:3000',
+      '/api' : {
+        // target: 'http://47.106.80.164',
+        target: 'http://localhost:3000',
+        logLevel: 'debug',
         changeOrigin: true,
         pathRewrite: {
-          '/module/public' : '/public'
+
         }
       }
     },
